@@ -10,11 +10,15 @@ public class Aimer : MonoBehaviour {
 
 	// time in seconds to wait before the aimer moves
 	public float aimerSpeed = 8.0f;
-	
+
+	public bool aimingH = false;		// whether this aimer is currently aiming the horizontal aimer
+	public bool aimingV = false;		// whether this aimer is currently aiming the vertical aimer
 	public bool aimed = false;
 
 	public int targetX;
 	public int targetY;
+
+	public bool paused;
 
 	// Use this for initialization
 	void Start () {
@@ -31,38 +35,62 @@ public class Aimer : MonoBehaviour {
 		StartCoroutine("AimH");
 	}
 
+	void Update()
+	{
+		if (paused)
+		{
+			aimerH.aiming = false;
+			aimerV.aiming = false;
+		}
+		else
+		{
+			if (aimingH)
+				aimerH.aiming = true;
+			else if (aimingV)
+				aimerV.aiming = true;
+		}
+	}
+
 	IEnumerator AimH()
 	{
+		aimingH = true;
+
 		// set aimerH active and to aiming mode
 		aimerH.gameObject.SetActive (true);
 		aimerH.aiming = true;
-		// if the mouse button isn't pressed, do nothing
-		while (!Input.GetMouseButtonDown(0))
+		// if the mouse button isn't pressed or if paused, do nothing
+		while (!GameManager.getInput() || paused)
 		{
 			yield return null;
 		}
+		// wait for end of frame so the same input isn't registered twice
+		yield return new WaitForEndOfFrame();
+		
 		// stops aiming mode and snaps aimerH to an integer x and y position
 		aimerH.aiming = false;
 		aimerH.snap();
 
-		// wait for end of frame so the same input isn't registered twice
-		yield return new WaitForEndOfFrame();
+		aimingH = false;
 
 		StartCoroutine("AimV");
 	}
 
 	IEnumerator AimV()
 	{
+		aimingV = true;
+
 		aimerV.gameObject.SetActive (true);
 		aimerC.GetComponent<SpriteRenderer>().enabled = true;
 
 		aimerV.aiming = true;
-		// if the mouse button isn't pressed, do nothing
-		while (!Input.GetMouseButtonDown(0))
+		// if the mouse button isn't pressed or if paused, do nothing
+		while (!GameManager.getInput() || paused)
 		{
-			aimerC.setX (aimerV.transform.position.x);
 			yield return null;
 		}
+		// wait for end of frame so the same input isn't registered twice
+		yield return new WaitForEndOfFrame();
+
 		aimerV.aiming = false;
 		aimerV.snap();
 
@@ -70,6 +98,7 @@ public class Aimer : MonoBehaviour {
 		targetY = (int)aimerH.targetY;
 		targetX = (int)aimerV.targetX;
 
+		aimingV = false;
 		// set this aimer to aimed mode
 		aimed = true;
 	}

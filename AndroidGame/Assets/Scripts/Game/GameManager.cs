@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip hitRed;
 	public AudioClip levelUp;
 
-	// TODO: implement a score system
+	public bool paused;
 	public int score;
 
 	void Awake()
@@ -30,6 +30,20 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine("Init");
 	}
 
+	void Update()
+	{
+		if (paused)
+		{
+			foreach(Aimer a in aimers)
+				a.paused = true;
+		}
+		else
+		{
+			foreach(Aimer a in aimers)
+				a.paused = false;
+		}
+	}
+
 	IEnumerator Init()
 	{
 		// Initialize the board (place tiles)
@@ -40,7 +54,7 @@ public class GameManager : MonoBehaviour {
 			yield return null;
 
 		// wait for user to acknowledge that the board has been init'd
-		while (!Input.GetMouseButtonDown(0))
+		while (!getInput () || paused)
 			yield return null;
 
 		yield return new WaitForEndOfFrame();
@@ -129,13 +143,29 @@ public class GameManager : MonoBehaviour {
 		yield return null;
 	}
 
-
-
 	IEnumerator GameOver()
 	{
 		//Debug.Log ("You lose");
 		yield return new WaitForSeconds(1.0f);
 
 		Application.LoadLevel(Application.loadedLevel);
+	}
+
+	public void Restart()
+	{
+		Application.LoadLevel (Application.loadedLevel);
+	}
+
+	public static bool getInput()
+	{
+		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
+		return Input.GetMouseButtonDown(0) && 
+			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < 6.5; 
+
+		#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
+		return Input.touchCount > 0 && 
+			Input.GetTouch(0).phase == TouchPhase.Began &&
+			Input.GetTouch (0).position.y < 6.5;
+		#endif
 	}
 }
