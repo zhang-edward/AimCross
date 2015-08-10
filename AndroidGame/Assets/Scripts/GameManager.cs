@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+	
+	private Board board;					// Reference to the Board object
 
-	private Board board;
+	public bool aiming;						// whether the game is waiting for the player to aim or not
+	private Aimer[] aimers = new Aimer[2];	// the two (TODO: make it possible for potentially more) aimers
+	private int aimerIndex = 0;				// index for which aimer to use
 
-	public bool aiming;
-	private Aimer[] aimers = new Aimer[2];
-	private int aimerIndex = 0;
-
-
+	// TODO: implement a score system
 	public int score;
 
 	void Awake()
@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 		aimers[0] = transform.FindChild("Aimer1").GetComponent<Aimer>();
 		aimers[1] = transform.FindChild("Aimer2").GetComponent<Aimer>();
 
+		// Initialize the board (place tiles)
 		board.InitBoard();
 
 		// initialize aiming coroutine
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator Aim()
 	{
-		//Debug.Log("Enter: Aim");
+		Debug.Log("Enter: Aim");
 		aimers[aimerIndex].Aim ();
 
 		// init target values with -1
@@ -53,29 +54,44 @@ public class GameManager : MonoBehaviour {
 		// reset aimer
 		aimers[aimerIndex].aimed = false;
 
-		// shorthand for if aimerIndex is 0, set to 1, else, set to 0
-		aimerIndex = aimerIndex == 0 ? 1 : 0;
-
-		//Debug.Log ("Exit: Aim");
+		Debug.Log ("Exit: Aim");
 		StartCoroutine(ProcessAim (targetX, targetY));
 	}
 	
 	IEnumerator ProcessAim(int targetX, int targetY)
 	{
-		//Debug.Log ("Enter: ProcessAim");
-		if (board.board[targetY, targetX] != null)
-			board.board[targetY, targetX].Destroy();
-		else
-			GameOver();
+		Debug.Log ("Enter: ProcessAim");
+		if (board.board[targetY, targetX].isEnemy)
+		{
+			// set the aimer's center to animate
+			aimers[aimerIndex].hitTarget(true);
 
-		aiming = true;
-		//Debug.Log ("Exit: ProcessAim");
-		StartCoroutine("Aim");dq
+			board.board[targetY, targetX].Destroy();
+
+			// shorthand for if aimerIndex is 0, set to 1, else, set to 0
+			// (switch the aimer between blue and purple)
+			aimerIndex = aimerIndex == 0 ? 1 : 0;
+			
+			aiming = true;
+
+			StartCoroutine("Aim");
+		}
+		else
+		{
+			// set the aimer's center to animate
+			aimers[aimerIndex].hitTarget (false);
+
+			StartCoroutine("GameOver");
+		}
+		Debug.Log ("Exit: ProcessAim");
 		yield return null;
 	}
 
-	public void GameOver()
+	IEnumerator GameOver()
 	{
+		Debug.Log ("You lose");
+		yield return new WaitForSeconds(1.0f);
 
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }

@@ -1,26 +1,23 @@
 fileFormatVersion: 2
-guid: 0b4fd05e8433ced46b9f1b81ea15f794
-timeCreated: 1438981166
+guid: 9e413ca5d02b52244af124caa9688c03
+timeCreated: 1439104150
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: androidGame 1_0
-    21300002: androidGame 1_1
-    21300004: androidGame 1_2
-    21300006: androidGame 1_3
-    21300008: androidGame 1_4
-    21300010: androidGame 1_5
-    21300012: androidGame 1_6
-    21300014: androidGame 1_7
-    21300016: androidGame 1_8
-    21300018: androidGame 1_9
-    21300020: androidGame 1_10
-    21300022: androidGame 1_11
-    21300024: androidGame 1_12
-    21300026: androidGame 1_13
-    21300028: androidGame 1_14
-    21300030: androidGame 1_15
-    21300032: androidGame 1_16
+    21300000: UI_0
+    21300002: UI_2
+    21300004: UI_3
+    21300006: UI_4
+    21300008: UI_6
+    21300010: UI_7
+    21300012: UI_8
+    21300014: UI_11
+    21300016: UI_12
+    21300018: UI_14
+    21300020: UI_15
+    21300022: UI_1
+    21300024: UI_16
+    21300026: UI_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -66,175 +63,145 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: androidGame 1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_4
+    - name: UI_0
       rect:
         serializedVersion: 2
         x: 0
         y: 96
-        width: 16
-        height: 16
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_5
+    - name: UI_2
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 96
-        width: 16
-        height: 16
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_6
+    - name: UI_3
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 112
+        y: 112
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_7
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_10
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_11
+    - name: UI_4
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 16
-        height: 16
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_12
+    - name: UI_6
       rect:
         serializedVersion: 2
-        x: 16
+        x: 64
         y: 64
-        width: 16
-        height: 16
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_13
+    - name: UI_7
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 112
+        y: 80
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_14
+    - name: UI_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 48
-        width: 16
-        height: 16
+        y: 32
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_15
+    - name: UI_11
       rect:
         serializedVersion: 2
-        x: 16
+        x: 112
         y: 48
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: androidGame 1_16
+    - name: UI_12
       rect:
         serializedVersion: 2
-        x: 32
-        y: 48
+        x: 0
+        y: 0
+        width: 48
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_14
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_15
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_1
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: UI_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class BoardPiece : MonoBehaviour {
 
+	public bool isEnemy;
 
 	public void Destroy()
 	{

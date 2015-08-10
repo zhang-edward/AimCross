@@ -2,31 +2,51 @@
 using System.Collections;
 
 public class AimerVertical : MonoBehaviour {
-	
+
+	// See AimerHorizontal for comments
+
 	public Board board;
 	int boardSize;
-	
+
+	public AimerCenter aimerC;
+
 	public bool aiming;
-	public bool movingUp;
 	public float speed;
 	
-	public GameObject prefab;
+	public GameObject prefabTop;
+	public GameObject prefabMid;
+	public GameObject prefabBottom;
 
 	// The x coordinate after this aimer has stopped
 	public float targetX;
 	
 	private float counter = 0.0f;
 	
-	void Start()
+	void Awake()
 	{
+		// Create the sprites that make up the bar
 		boardSize = Board.boardSize;
-		for (int i = -boardSize / 2; i < boardSize / 2; i ++)
+		
+		CreateAimerPiece (prefabBottom, -boardSize / 2);
+		CreateAimerPiece (prefabTop, boardSize / 2 - 1);
+		// the starting and stopping i values are +1 and -1 to exclude the left and right pieces
+		for (int i = -boardSize / 2 + 1; i < boardSize / 2 - 1; i ++)
 		{
-			GameObject o = Instantiate (prefab, this.transform.position, Quaternion.identity) as GameObject;
-			Vector3 localPos = new Vector3(0, i, 0);
-			o.transform.SetParent(this.transform);
-			o.transform.localPosition = localPos;
+			CreateAimerPiece(prefabMid, i);
 		}
+	}
+	
+	void CreateAimerPiece(GameObject prefab, int yPos)
+	{
+		// set the World Position to this instance
+		GameObject o = Instantiate (prefab, this.transform.position, Quaternion.identity) as GameObject;
+		
+		// set the Local Position to the xPos specified
+		Vector3 localPos = new Vector3(0, yPos, 0);
+		
+		// set this to be the object's parent and set local position
+		o.transform.SetParent(this.transform);
+		o.transform.localPosition = localPos;
 	}
 	
 	void Update()
@@ -35,16 +55,15 @@ public class AimerVertical : MonoBehaviour {
 		{
 			counter += speed * Time.deltaTime;
 			float xPos = Mathf.PingPong(counter, boardSize - 1);
-			transform.position = new Vector3(xPos, transform.position.y);
+			setPosition(new Vector3(xPos, transform.position.y));
 		}
 	}
 	
-	public void snapToX()
+	/*public void snapToX()
 	{
 		float xPos = Mathf.Round(transform.position.x);
 		counter = Mathf.Round (counter);
 		targetX = xPos;
-		/*transform.position = new Vector3(xPos, transform.position.y);*/
 		StartCoroutine ("smoothSnap", xPos);
 	}
 
@@ -60,5 +79,34 @@ public class AimerVertical : MonoBehaviour {
 			yield return null;
 		}
 		transform.position = new Vector3(xDest, transform.position.y);
+	}*/
+
+	public void snap()
+	{
+		float xPos = Mathf.Round(transform.position.x);
+		targetX = xPos;
+
+		StartCoroutine("smoothSnap");
+	}
+	
+	// Use Mathf.SmoothDamp for smooth snapping to integer y position
+	IEnumerator smoothSnap()
+	{
+		Vector3 destPos = new Vector3(Mathf.Round (transform.position.x),
+		                              Mathf.Round (transform.position.y));
+		Vector3 velocity = Vector3.zero;
+		while(Vector3.Distance (transform.position, destPos) > Mathf.Epsilon)
+		{
+			setPosition(Vector3.SmoothDamp(transform.position, destPos, ref velocity, 0.05f));
+			yield return null;
+		}
+		setPosition(destPos);
+	}
+
+	void setPosition(Vector3 pos)
+	{
+		transform.position = pos;
+		// aimerC is updated whenever this transform position is updated
+		aimerC.setX(this.transform.position.x);
 	}
 }

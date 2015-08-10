@@ -6,7 +6,7 @@ public class Board : MonoBehaviour {
 	public const int boardSize = 6;
 
 	public int[,] boardGen = new int[boardSize, boardSize];
-	public Enemy[,] board = new Enemy[boardSize, boardSize];
+	public BoardPiece[,] board = new BoardPiece[boardSize, boardSize];
 
 	// Prefabs
 	public GameObject floorPrefab;
@@ -19,16 +19,16 @@ public class Board : MonoBehaviour {
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
-				CreateNewTile(floorPrefab, x, y);
+				boardGen[y, x] = 0;
 			}
 		}
 
-		// put in random enemies
+		// put in random boardPieces
 		for (int x = 0; x < boardSize; x ++)
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
-				if (Random.value < 0.50)
+				if (Random.value < 0.40)
 					boardGen[y, x] = 1;
 			}
 		}
@@ -37,9 +37,14 @@ public class Board : MonoBehaviour {
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
+				if (boardGen[y, x] == 0)
+				{
+					board[y, x] = CreateNewTile(floorPrefab, x, y).GetComponent<BoardPiece>();
+				}
+
 				if (boardGen[y, x] == 1)
 				{
-					board[y, x] = CreateNewTile(enemyPrefab, x, y).GetComponent<Enemy>();
+					board[y, x] = CreateNewTile(enemyPrefab, x, y).GetComponent<BoardPiece>();
 				}
 			}
 		}
