@@ -37,8 +37,7 @@ public class Aimer : MonoBehaviour {
 		aimerH.gameObject.SetActive (true);
 		aimerH.aiming = true;
 		// if the mouse button isn't pressed, do nothing
-		while (!Input.GetMouseButtonDown(0) &&
-		       !GameManager.getTouchInput())
+		while (!Input.GetMouseButtonDown(0))
 		{
 			yield return null;
 		}
@@ -59,8 +58,7 @@ public class Aimer : MonoBehaviour {
 
 		aimerV.aiming = true;
 		// if the mouse button isn't pressed, do nothing
-		while (!Input.GetMouseButtonDown(0) &&
-		       !GameManager.getTouchInput())
+		while (!Input.GetMouseButtonDown(0))
 		{
 			aimerC.setX (aimerV.transform.position.x);
 			yield return null;

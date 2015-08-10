@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour {
 			yield return null;
 
 		// wait for user to acknowledge that the board has been init'd
-		while (!getTouchInput() &&
-		       !Input.GetMouseButtonDown(0))
+		while (!Input.GetMouseButtonDown(0))
 			yield return null;
 
 		yield return new WaitForEndOfFrame();
@@ -108,11 +107,5 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(1.0f);
 
 		Application.LoadLevel(Application.loadedLevel);
-	}
-
-	public static bool getTouchInput()
-	{
-		return Input.touchCount > 0 && 
-			Input.GetTouch(0).phase == TouchPhase.Began;
 	}
 }
