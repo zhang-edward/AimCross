@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 		while (!getInput () || paused)
 			yield return null;
 
-		yield return new WaitForEndOfFrame();
+		yield return new WaitForSeconds(1.0f/60.0f);
 
 		// initialize aiming coroutine
 		aiming = true;
@@ -158,14 +158,19 @@ public class GameManager : MonoBehaviour {
 
 	public static bool getInput()
 	{
-		#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
-		return Input.GetMouseButtonDown(0) && 
-			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < 6.5; 
+		float yBorder = (Camera.main.orthographicSize * 2) * (10.0f / 12.0f) - 3.5f;
+		Debug.Log (yBorder);
+		Debug.Log (Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
 
-		#elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-		return Input.touchCount > 0 && 
-			Input.GetTouch(0).phase == TouchPhase.Began &&
-			Input.GetTouch (0).position.y < 6.5;
-		#endif
+//#if UNITY_EDITOR
+		return Input.GetMouseButtonDown(0) && 
+			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder;
+
+//#elif UNITY_ANDROID
+		/*return Input.touchCount > 0 && 
+			Input.GetTouch (0).phase == TouchPhase.Began &&
+			Input.GetTouch(0).position.y < yBorder;*/
+
+//#endif
 	}
 }

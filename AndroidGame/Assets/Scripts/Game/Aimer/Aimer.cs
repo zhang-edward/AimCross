@@ -64,7 +64,7 @@ public class Aimer : MonoBehaviour {
 			yield return null;
 		}
 		// wait for end of frame so the same input isn't registered twice
-		yield return new WaitForEndOfFrame();
+		yield return new WaitForSeconds(1.0f/60.0f);
 		
 		// stops aiming mode and snaps aimerH to an integer x and y position
 		aimerH.aiming = false;
@@ -89,7 +89,7 @@ public class Aimer : MonoBehaviour {
 			yield return null;
 		}
 		// wait for end of frame so the same input isn't registered twice
-		yield return new WaitForEndOfFrame();
+		yield return new WaitForSeconds(1.0f/60.0f);
 
 		aimerV.aiming = false;
 		aimerV.snap();
