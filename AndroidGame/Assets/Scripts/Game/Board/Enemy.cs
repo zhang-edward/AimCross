@@ -12,6 +12,7 @@ public class Enemy : BoardTile {
 		board.board[y, x] = null;
 		gameObject.SetActive(false);
 
+		board.floorTiles[y, x].gameObject.SetActive(true);
 		board.floorTiles[y, x].animate ();
 	}
 }

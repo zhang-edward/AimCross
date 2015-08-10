@@ -13,7 +13,12 @@ public class Board : MonoBehaviour {
 	public GameObject floorPrefab;
 	public GameObject enemyPrefab;
 
-	public bool initialized = false;
+	public bool populated = false;
+
+	void Start()
+	{
+
+	}
 
 	public void InitBoard()
 	{
@@ -25,13 +30,16 @@ public class Board : MonoBehaviour {
 				floorTiles[y, x] = CreateNewTile(floorPrefab, x, y).GetComponent<BoardTile>() as Floor;
 			}
 		}
+	}
 
+	public void PopulateBoard()
+	{
 		// put in random boardPieces
 		for (int x = 0; x < boardSize; x ++)
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
-				if (Random.value < 0.40)
+				if (Random.value < 0.25)
 					boardGen[y, x] = 1;
 			}
 		}
@@ -52,18 +60,37 @@ public class Board : MonoBehaviour {
 					Enemy enemy = o.GetComponent<Enemy>();
 					enemy.animate ();
 					board[y, x] = enemy;
+
+					floorTiles[y, x].gameObject.SetActive(false);
+				}
+				else
+				{
+					floorTiles[y, x].gameObject.SetActive (true);
 				}
 			}
 		}
-
-		initialized = true;
+		populated = true;
 	}
 	
-	GameObject CreateNewTile(GameObject prefab, int x, int y)
+	public GameObject CreateNewTile(GameObject prefab, int x, int y)
 	{
 		GameObject o = Instantiate (prefab, new Vector3(x, y), Quaternion.identity) as GameObject;
 		o.transform.SetParent(this.transform);
 		o.GetComponent<BoardTile>().board = this;
 		return o;
+	}
+
+	// check if the board is empty (there are no more active enemy tiles)
+	public bool checkIfBoardClear()
+	{
+		for (int x = 0; x < boardSize; x ++)
+		{
+			for (int y = 0; y < boardSize; y ++)
+			{
+				if (board[y, x] != null)
+					return false;
+			}
+		}
+		return true;
 	}
 }

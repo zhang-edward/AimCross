@@ -192,6 +192,7 @@
      <Compile Include="Assets\External\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
      <Compile Include="Assets\External\GooglePlayGames\PluginVersion.cs" />
      <Compile Include="Assets\Scripts\AspectRatioScript.cs" />
+     <Compile Include="Assets\Scripts\GUIManager.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\Aimer.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerCenter.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerHorizontal.cs" />
@@ -201,6 +202,7 @@
      <Compile Include="Assets\Scripts\Game\Board\Enemy.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Floor.cs" />
      <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+     <Compile Include="Assets\Scripts\SoundManager.cs" />
      <None Include="Assets\External\GooglePlayGames\Editor\Podfile.txt" />
      <None Include="Assets\External\GooglePlayGames\Editor\template-GameInfo.txt" />
      <None Include="Assets\External\GooglePlayGames\Editor\template-AndroidManifest.txt" />

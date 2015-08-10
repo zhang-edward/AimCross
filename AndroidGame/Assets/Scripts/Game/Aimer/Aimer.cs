@@ -79,4 +79,11 @@ public class Aimer : MonoBehaviour {
 	{
 		aimerC.ShowIndicator(hit);
 	}
+
+	public void disableAimers()
+	{
+		aimerH.gameObject.SetActive(false);
+		aimerV.gameObject.SetActive(false);
+		aimerC.GetComponent<SpriteRenderer>().enabled = false;
+	}
 }

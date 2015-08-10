@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour {
 	private Aimer[] aimers = new Aimer[2];	// the two (TODO: make it possible for potentially more) aimers
 	private int aimerIndex = 0;				// index for which aimer to use
 
+	public AudioClip hitGreen;
+	public AudioClip hitRed;
+	public AudioClip levelUp;
+
 	// TODO: implement a score system
 	public int score;
 
@@ -22,16 +26,17 @@ public class GameManager : MonoBehaviour {
 		aimers[0] = transform.FindChild("Aimer1").GetComponent<Aimer>();
 		aimers[1] = transform.FindChild("Aimer2").GetComponent<Aimer>();
 
+		board.InitBoard();
 		StartCoroutine("Init");
 	}
 
 	IEnumerator Init()
 	{
 		// Initialize the board (place tiles)
-		board.InitBoard();
+		board.PopulateBoard();
 
 		// wait for the board to be initialized
-		while (!board.initialized)
+		while (!board.populated)
 			yield return null;
 
 		// wait for user to acknowledge that the board has been init'd
@@ -82,16 +87,39 @@ public class GameManager : MonoBehaviour {
 
 			board.board[targetY, targetX].Hit();
 
-			// shorthand for if aimerIndex is 0, set to 1, else, set to 0
-			// (switch the aimer between blue and purple)
-			aimerIndex = aimerIndex == 0 ? 1 : 0;
-			
-			aiming = true;
+			// check if all enemy tiles are cleared
+			if (board.checkIfBoardClear())
+			{
+				score += 5;
+				SoundManager.instance.PlaySingle(levelUp);
 
-			StartCoroutine("Aim");
+				// disabled the aimers when regenerating level
+				yield return new WaitForSeconds(1.0f);
+				foreach(Aimer a in aimers)
+					a.disableAimers();
+				
+				board.populated = false;
+				
+				StartCoroutine("Init");
+			}
+			// normal hit
+			else
+			{
+				score += 1;
+				SoundManager.instance.PlaySingle(hitGreen);
+
+				// shorthand for if aimerIndex is 0, set to 1, else, set to 0
+				// (switch the aimer between blue and purple)
+				aimerIndex = aimerIndex == 0 ? 1 : 0;
+				
+				aiming = true;
+				
+				StartCoroutine("Aim");
+			}
 		}
 		else
 		{
+			SoundManager.instance.PlaySingle(hitRed);
 			// set the aimer's center to animate
 			aimers[aimerIndex].hitTarget (false);
 
@@ -100,6 +128,8 @@ public class GameManager : MonoBehaviour {
 		//Debug.Log ("Exit: ProcessAim");
 		yield return null;
 	}
+
+
 
 	IEnumerator GameOver()
 	{
