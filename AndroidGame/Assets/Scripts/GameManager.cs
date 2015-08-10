@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
 	void Awake()
 	{
-		board = GetComponent<Board>();
+		board = GetComponentInChildren<Board>();
 	}
 	
 	void Start()
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator Aim()
 	{
-		Debug.Log("Enter: Aim");
+		//Debug.Log("Enter: Aim");
 		aimers[aimerIndex].Aim ();
 
 		// init target values with -1
@@ -54,19 +54,19 @@ public class GameManager : MonoBehaviour {
 		// reset aimer
 		aimers[aimerIndex].aimed = false;
 
-		Debug.Log ("Exit: Aim");
+		//Debug.Log ("Exit: Aim");
 		StartCoroutine(ProcessAim (targetX, targetY));
 	}
 	
 	IEnumerator ProcessAim(int targetX, int targetY)
 	{
-		Debug.Log ("Enter: ProcessAim");
+		//Debug.Log ("Enter: ProcessAim");
 		if (board.board[targetY, targetX].isEnemy)
 		{
 			// set the aimer's center to animate
 			aimers[aimerIndex].hitTarget(true);
 
-			board.board[targetY, targetX].Destroy();
+			board.board[targetY, targetX].Hit();
 
 			// shorthand for if aimerIndex is 0, set to 1, else, set to 0
 			// (switch the aimer between blue and purple)
@@ -81,15 +81,33 @@ public class GameManager : MonoBehaviour {
 			// set the aimer's center to animate
 			aimers[aimerIndex].hitTarget (false);
 
-			StartCoroutine("GameOver");
+
+
+
+			// set the aimer's center to animate
+			aimers[aimerIndex].hitTarget(true);
+			
+			board.board[targetY, targetX].Hit();
+			
+			// shorthand for if aimerIndex is 0, set to 1, else, set to 0
+			// (switch the aimer between blue and purple)
+			aimerIndex = aimerIndex == 0 ? 1 : 0;
+			
+			aiming = true;
+
+
+
+
+
+			StartCoroutine("Aim");
 		}
-		Debug.Log ("Exit: ProcessAim");
+		//Debug.Log ("Exit: ProcessAim");
 		yield return null;
 	}
 
 	IEnumerator GameOver()
 	{
-		Debug.Log ("You lose");
+		//Debug.Log ("You lose");
 		yield return new WaitForSeconds(1.0f);
 
 		Application.LoadLevel(Application.loadedLevel);

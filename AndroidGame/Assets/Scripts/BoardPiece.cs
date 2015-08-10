@@ -5,9 +5,8 @@ public class BoardPiece : MonoBehaviour {
 
 	public bool isEnemy;
 
-	public void Destroy()
+	public void Hit()
 	{
-		gameObject.SetActive(false);
 	}
 
 }

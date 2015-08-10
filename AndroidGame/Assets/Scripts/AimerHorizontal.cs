@@ -61,6 +61,7 @@ public class AimerHorizontal : MonoBehaviour {
 
 	void Update()
 	{
+		Debug.Log (counter);
 		// use Mathf.PingPong() to make the aimer back and forth along the board
 		if (aiming)
 		{
@@ -99,6 +100,9 @@ public class AimerHorizontal : MonoBehaviour {
 
 	public void snap()
 	{
+		// round the counter so that Mathf.PingPong() will start at the correct position
+		counter = Mathf.Round (counter);
+
 		// round the yPos to get an integer value for the targetY, which is passed back to the Aimer
 		float yPos = Mathf.Round(transform.position.y);
 		targetY = yPos;
@@ -112,12 +116,24 @@ public class AimerHorizontal : MonoBehaviour {
 		Vector3 destPos = new Vector3(Mathf.Round (transform.position.x),
 		                              Mathf.Round (transform.position.y));
 		Vector3 velocity = Vector3.zero;
-		while(Vector3.Distance (transform.position, destPos) > Mathf.Epsilon)
+
+		/*
+		 * this counter prevents the player from tapping very fast and causing
+		 * the aimer to start aiming before it finishes snapping, therefore causing
+		 * this coroutine to try to snap the aimer back in place while it tries to 
+		 * aim, causing erratic movements
+		 * */
+		float counter = 0.0f;
+		while(Vector3.Distance (transform.position, destPos) > Mathf.Epsilon &&
+		      counter <= 0.05f)
 		{
+			counter += Time.deltaTime;
+			Debug.Log (counter);
 			setPosition(Vector3.SmoothDamp(transform.position, destPos, ref velocity, 0.05f));
 			yield return null;
 		}
 		setPosition(destPos);
+		yield return null;
 	}
 
 	void setPosition(Vector3 pos)

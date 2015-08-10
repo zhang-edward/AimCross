@@ -52,6 +52,8 @@ public class Board : MonoBehaviour {
 	
 	GameObject CreateNewTile(GameObject prefab, int x, int y)
 	{
-		return Instantiate (prefab, new Vector3(x, y), Quaternion.identity) as GameObject;
+		GameObject o = Instantiate (prefab, new Vector3(x, y), Quaternion.identity) as GameObject;
+		o.transform.SetParent(this.transform);
+		return o;
 	}
 }
