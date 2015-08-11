@@ -12,6 +12,8 @@ public class SoundManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+
+		// Make this a singleton
 		if (instance == null)
 			instance = this;
 		else if (instance != this)
@@ -22,10 +24,14 @@ public class SoundManager : MonoBehaviour {
 
 	public void PlaySingle(AudioClip clip)
 	{
+		// randomize the pitch of each sound a little bit
+		float randomPitch = Random.Range (lowPitchRange, highPitchRange);
+		efxSource.pitch = randomPitch;
 		efxSource.clip = clip;
-		efxSource.Play ();
+		efxSource.Play();
 	}
 
+	/*
 	public void RandomizeSfx(params AudioClip[] clips)
 	{
 		int randomIndex = Random.Range (0, clips.Length);
@@ -35,5 +41,5 @@ public class SoundManager : MonoBehaviour {
 		efxSource.clip = clips[randomIndex];
 		efxSource.Play();
 
-	}
+	}*/
 }

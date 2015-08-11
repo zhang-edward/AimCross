@@ -1,0 +1,12 @@
+This is for designing UI elements
+
+- the "1" part of the ratio should be 192
+
+width:height ratios
+===================
+
+Long - 2:1
+Med - 3:2
+Small - 1:1
+
+Panel - 1:1

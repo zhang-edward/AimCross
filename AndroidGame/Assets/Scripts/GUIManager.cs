@@ -41,4 +41,9 @@ public class GUIManager : MonoBehaviour {
 		gameManager.paused = false;
 		pauseMenu.gameObject.SetActive (false);
 	}
+
+	public void MainMenu()
+	{
+		Application.LoadLevel("MainMenu");
+	}
 }

@@ -202,6 +202,8 @@
      <Compile Include="Assets\Scripts\Game\Board\Enemy.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Floor.cs" />
      <Compile Include="Assets\Scripts\Game\GameManager.cs" />
+     <Compile Include="Assets\Scripts\MenuUIManager.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\SoundManager.cs" />
      <None Include="Assets\External\GooglePlayGames\Editor\Podfile.txt" />
      <None Include="Assets\External\GooglePlayGames\Editor\template-GameInfo.txt" />

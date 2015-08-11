@@ -12,7 +12,7 @@ TrueTypeFontImporter:
   use2xBehaviour: 0
   fontNames: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 

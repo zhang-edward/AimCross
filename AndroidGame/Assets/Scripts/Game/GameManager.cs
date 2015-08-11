@@ -159,9 +159,6 @@ public class GameManager : MonoBehaviour {
 	public static bool getInput()
 	{
 		float yBorder = (Camera.main.orthographicSize * 2) * (10.0f / 12.0f) - 3.5f;
-		Debug.Log (yBorder);
-		Debug.Log (Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-
 //#if UNITY_EDITOR
 		return Input.GetMouseButtonDown(0) && 
 			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder;
