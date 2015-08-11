@@ -15,6 +15,7 @@ public class Board : MonoBehaviour {
 
 	public bool populated = false;
 
+	// TODO: spawn a set number of enemy tiles per level instead of just random
 	void Start()
 	{
 

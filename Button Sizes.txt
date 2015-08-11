@@ -1,12 +1,14 @@
 This is for designing UI elements
 
 - the "1" part of the ratio should be 192
+- button images should be 96 x 96
+- large button images (transparent ones) should be 256 x 96
 
 width:height ratios
 ===================
 
-Long - 2:1
-Med - 3:2
-Small - 1:1
+Long - 2 : 1
+Med - 1.5 : 1
+Small - 1 : 1
 
-Panel - 1:1
+Panel - 2 : 2

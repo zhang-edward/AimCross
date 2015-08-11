@@ -19,4 +19,29 @@ public class MenuUIManager : MonoBehaviour {
 	{
 		settingsMenu.gameObject.SetActive(false);
 	}
+
+	public void GPGAchievementsUI()
+	{
+		if (PlayerPrefs.HasKey("GPG"))
+			Social.ShowAchievementsUI();
+		else
+			GPGAuthenticate();
+	}
+	
+	public void GPGLeaderboardsUI()
+	{
+		if (PlayerPrefs.HasKey("GPG"))
+			Social.ShowLeaderboardUI();
+		else
+			GPGAuthenticate();
+	}
+
+	public void GPGAuthenticate()
+	{
+		// authenticate user:
+		Social.localUser.Authenticate((bool success) => {
+			if (success)
+				PlayerPrefs.SetInt("GPG", 1);
+		});
+	}
 }
