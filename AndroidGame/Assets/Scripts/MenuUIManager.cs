@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
+
 public class MenuUIManager : MonoBehaviour {
 
 	public GameObject settingsMenu;
@@ -22,7 +26,7 @@ public class MenuUIManager : MonoBehaviour {
 
 	public void GPGAchievementsUI()
 	{
-		if (PlayerPrefs.HasKey("GPG"))
+		if (PlayerPrefs.HasKey("GPG") && PlayerPrefs.GetInt("GPG") == 1)
 			Social.ShowAchievementsUI();
 		else
 			GPGAuthenticate();
@@ -30,7 +34,7 @@ public class MenuUIManager : MonoBehaviour {
 	
 	public void GPGLeaderboardsUI()
 	{
-		if (PlayerPrefs.HasKey("GPG"))
+		if (PlayerPrefs.HasKey("GPG") && PlayerPrefs.GetInt("GPG") == 1)
 			Social.ShowLeaderboardUI();
 		else
 			GPGAuthenticate();
@@ -38,10 +42,11 @@ public class MenuUIManager : MonoBehaviour {
 
 	public void GPGAuthenticate()
 	{
-		// authenticate user:
 		Social.localUser.Authenticate((bool success) => {
 			if (success)
+			{
 				PlayerPrefs.SetInt("GPG", 1);
+			}
 		});
 	}
 }

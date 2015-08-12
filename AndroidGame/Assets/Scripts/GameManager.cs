@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour {
 	IEnumerator GameOver()
 	{
 		ScoreManager.instance.GPGReportScore();
+		ScoreManager.instance.gamesPlayed ++;
 
 		yield return new WaitForSeconds(1.0f);
 

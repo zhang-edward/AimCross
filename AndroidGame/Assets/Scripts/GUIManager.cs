@@ -2,8 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-using GoogleMobileAds.Api;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
 
+using GoogleMobileAds.Api;
 
 public class GUIManager : MonoBehaviour {
 
@@ -22,8 +25,8 @@ public class GUIManager : MonoBehaviour {
 	public GameObject pauseMenu;
 	public GameObject gameMenu;
 
+	InterstitialAd interstitial;
 	private const string INTERSTITIAL_ID = "ca-app-pub-1010781108315903/2216275874";
-
 
 	void Awake()
 	{
@@ -32,10 +35,10 @@ public class GUIManager : MonoBehaviour {
 
 	void Start()
 	{
-
-
 		// set the canvas to be in the UI layer (in front of everything else)
 		canvas.sortingLayerName = "UI";
+
+		RequestInterstitial();
 	}
 
 	void Update()
@@ -65,15 +68,30 @@ public class GUIManager : MonoBehaviour {
 		gameMenu.GetComponent<Animation>().Play();
 		gameMenuScore.text = "Score:\n" + scoreText.text;
 
-		RequestInterstitial();
+		// Every 6th game show an ad
+		if (interstitial.IsLoaded() && 
+		    ScoreManager.instance.gamesPlayed % 6 == 0)
+		{
+			interstitial.Show();
+		}
 	}
 
 	private void RequestInterstitial()
 	{
+		#if UNITY_ANDROID
+		string adUnitId = INTERSTITIAL_ID;
+		#elif UNITY_IPHONE
+		string adUnitId = "INSERT_IOS_INTERSTITIAL_AD_UNIT_ID_HERE";
+		#else
+		string adUnitId = "unexpected_platform";
+		#endif
+		
 		// Initialize an InterstitialAd.
-		InterstitialAd interstitial = new InterstitialAd(INTERSTITIAL_ID);
+		interstitial = new InterstitialAd(adUnitId);
 		// Create an empty ad request.
-		AdRequest request = new AdRequest.Builder().Build();
+		AdRequest request = new AdRequest.Builder()
+			.AddTestDevice("A4D94C6CCCC78F95136843C5B0579088")
+			.Build();
 		// Load the interstitial with the request.
 		interstitial.LoadAd(request);
 	}

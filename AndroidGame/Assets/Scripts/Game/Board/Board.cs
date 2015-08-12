@@ -15,6 +15,8 @@ public class Board : MonoBehaviour {
 
 	public bool populated = false;
 
+	public int level;
+
 	// TODO: spawn a set number of enemy tiles per level instead of just random
 	void Start()
 	{
@@ -35,15 +37,24 @@ public class Board : MonoBehaviour {
 
 	public void PopulateBoard()
 	{
-		// put in random boardPieces
-		for (int x = 0; x < boardSize; x ++)
+		// Equation to calculate the number of enemies on te board
+		int numEnemies = (int)(20.0f * (Mathf.Log10 (level + 1.0f)));
+
+		if (numEnemies > 18)
+			numEnemies = 18;
+
+		while (numEnemies > 0)
 		{
-			for (int y = 0; y < boardSize; y ++)
+			int randX = Random.Range (0, boardSize);
+			int randY = Random.Range (0, boardSize);
+
+			if (boardGen[randY, randX] == 0)
 			{
-				if (Random.value < 0.25)
-					boardGen[y, x] = 1;
+				boardGen[randY, randX] = 1;
+				numEnemies --;
 			}
 		}
+
 
 		StartCoroutine("InitBoardAnim");
 	}

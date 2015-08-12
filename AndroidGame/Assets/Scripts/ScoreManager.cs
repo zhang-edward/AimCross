@@ -14,6 +14,8 @@ public class ScoreManager : MonoBehaviour {
 	public int lastScore;
 	public int highScore;
 
+	public int gamesPlayed;
+
 	public static ScoreManager instance;
 
 	void Awake()
@@ -31,6 +33,7 @@ public class ScoreManager : MonoBehaviour {
 	{
 		// get the high score from the playerPrefs
 		highScore = PlayerPrefs.GetInt("High Score");
+		gamesPlayed = PlayerPrefs.GetInt ("Games Played");
 
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
 			.Build();
