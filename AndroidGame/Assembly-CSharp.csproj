@@ -216,12 +216,12 @@
      <Compile Include="Assets\GooglePlayGames\Platforms\NearbyConnectionClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-     <Compile Include="Assets\Scripts\AspectRatioScript.cs" />
      <Compile Include="Assets\Scripts\GUIManager.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\Aimer.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerCenter.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerHorizontal.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerVertical.cs" />
+     <Compile Include="Assets\Scripts\Game\Board\AreaAffectTile.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Board.cs" />
      <Compile Include="Assets\Scripts\Game\Board\BoardTile.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Enemy.cs" />

@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-	
+
+	public static GameManager instance;
+
 	private Board board;					// Reference to the Board object
 
 	public GUIManager guiManager;
@@ -20,6 +22,11 @@ public class GameManager : MonoBehaviour {
 
 	void Awake()
 	{
+		if (instance == null)
+			instance = this;
+		else if (instance != this)
+			Destroy (gameObject);
+
 		board = GetComponentInChildren<Board>();
 	}
 	
@@ -96,17 +103,19 @@ public class GameManager : MonoBehaviour {
 	IEnumerator ProcessAim(int targetX, int targetY)
 	{
 		//Debug.Log ("Enter: ProcessAim");
+
+		// if there is an enemy at the target x and y positions
 		if (board.board[targetY, targetX] != null)
 		{
-			// set the aimer's center to animate
+			// set the aimer's center to animates
 			aimers[aimerIndex].hitTarget(true);
 
-			board.board[targetY, targetX].Hit();
+			BoardTile enemy = board.board[targetY, targetX];
+			enemy.Hit();
 
 			// check if all enemy tiles are cleared
 			if (board.checkIfBoardClear())
 			{
-				score += 5;
 				SoundManager.instance.PlaySingle(levelUp);
 
 				// disabled the aimers when regenerating level
@@ -121,7 +130,6 @@ public class GameManager : MonoBehaviour {
 			// normal hit
 			else
 			{
-				score += 1;
 				SoundManager.instance.PlaySingle(hitGreen);
 
 				// shorthand for if aimerIndex is 0, set to 1, else, set to 0

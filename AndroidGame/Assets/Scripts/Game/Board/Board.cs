@@ -7,11 +7,12 @@ public class Board : MonoBehaviour {
 
 	public int[,] boardGen = new int[boardSize, boardSize];
 	public Floor[,] floorTiles = new Floor[boardSize, boardSize];
-	public Enemy[,] board = new Enemy[boardSize, boardSize];
+	public BoardTile[,] board = new BoardTile[boardSize, boardSize];
 
 	// Prefabs
 	public GameObject floorPrefab;
 	public GameObject enemyPrefab;
+	public GameObject enemyAreaPrefab;
 
 	public bool populated = false;
 
@@ -50,7 +51,11 @@ public class Board : MonoBehaviour {
 
 			if (boardGen[randY, randX] == 0)
 			{
-				boardGen[randY, randX] = 1;
+				if (Random.value < 0.80)
+					boardGen[randY, randX] = 1;
+				else
+					boardGen[randY, randX] = 2;
+
 				numEnemies --;
 			}
 		}
@@ -61,27 +66,50 @@ public class Board : MonoBehaviour {
 
 	IEnumerator InitBoardAnim()
 	{
-		yield return new WaitForSeconds(0.5f);
 		for (int x = 0; x < boardSize; x ++)
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
-				if (boardGen[y, x] == 1)
+				// if the boardGen is set to something that is not a floor tile
+				if (boardGen[y, x] != 0)
 				{
-					GameObject o = CreateNewTile(enemyPrefab, x, y);
-					Enemy enemy = o.GetComponent<Enemy>();
-					enemy.animate ();
-					board[y, x] = enemy;
+					// have a random delay before animating the tiles so they don't all animate at the same time
+					float delay = Random.value;
+					GameObject obj = null;
 
-					floorTiles[y, x].gameObject.SetActive(false);
+					// create the correct prefab
+					if (boardGen[y, x] == 1)
+						obj = CreateNewTile(enemyPrefab, x, y);
+					else if (boardGen[y, x] == 2)
+						obj = CreateNewTile(enemyAreaPrefab, x, y);
+
+					obj.SetActive (false);
+
+					StartCoroutine (AnimateTile(obj, delay, x, y));
+
 				}
+				// else make the floor tile at the coordinate visible
 				else
-				{
 					floorTiles[y, x].gameObject.SetActive (true);
-				}
 			}
 		}
 		populated = true;
+
+		yield return null;
+	}
+
+	IEnumerator AnimateTile(GameObject tile, float delay, int x, int y)
+	{
+		yield return new WaitForSeconds(delay);
+
+		// make the floor tile invisible and the enemy tile visible
+		floorTiles[y, x].gameObject.SetActive(false);
+		tile.SetActive(true);
+
+		// add the prefab to the board array and animate tile
+		BoardTile enemy = tile.GetComponent<BoardTile>();
+		board[y, x] = enemy;
+		enemy.animate ();
 	}
 	
 	public GameObject CreateNewTile(GameObject prefab, int x, int y)

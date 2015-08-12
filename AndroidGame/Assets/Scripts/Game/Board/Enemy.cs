@@ -2,9 +2,11 @@
 using System.Collections;
 
 public class Enemy : BoardTile {
-
+		
 	public override void Hit()
 	{
+		GameManager.instance.score += pointValue;
+
 		int x = (int)transform.position.x;
 		int y = (int)transform.position.y;
 

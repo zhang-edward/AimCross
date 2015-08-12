@@ -10,16 +10,17 @@ using GoogleMobileAds.Api;
 
 public class GUIManager : MonoBehaviour {
 
-	public GameManager gameManager;
-
 	private Canvas canvas;
+
+	// this will continually increment until it reaches the score, giving the score that "scoreboard" feel
+	public int scoreTextIncrementer;
 
 	public Text scoreText;
 	public Text scoreTextShadow;
 
 	public Text highScoreText;
 	public Text highScoreTextShadow;
-
+	
 	public Text gameMenuScore;
 
 	public GameObject pauseMenu;
@@ -43,22 +44,27 @@ public class GUIManager : MonoBehaviour {
 
 	void Update()
 	{
-		scoreText.text = gameManager.score.ToString();
-		scoreTextShadow.text = scoreText.text;
+		if (scoreTextIncrementer < GameManager.instance.score)
+		{
+			scoreTextIncrementer ++;
 
-		highScoreText.text = "High Score: " + ScoreManager.instance.highScore.ToString();
-		highScoreTextShadow.text = highScoreText.text;
+			scoreText.text = scoreTextIncrementer.ToString();
+			scoreTextShadow.text = scoreText.text;
+
+			highScoreText.text = "High Score: " + ScoreManager.instance.highScore.ToString();
+			highScoreTextShadow.text = highScoreText.text;
+		}
 	}
 
 	public void Pause()
 	{
-		gameManager.paused = true;
+		GameManager.instance.paused = true;
 		pauseMenu.gameObject.SetActive (true);
 	}
 
 	public void UnPause()
 	{
-		gameManager.paused = false;
+		GameManager.instance.paused = false;
 		pauseMenu.gameObject.SetActive (false);
 	}
 
@@ -69,11 +75,11 @@ public class GUIManager : MonoBehaviour {
 		gameMenuScore.text = "Score:\n" + scoreText.text;
 
 		// Every 6th game show an ad
-		if (interstitial.IsLoaded() && 
+		/*if (interstitial.IsLoaded() && 
 		    ScoreManager.instance.gamesPlayed % 6 == 0)
 		{
 			interstitial.Show();
-		}
+		}*/
 	}
 
 	private void RequestInterstitial()
@@ -89,6 +95,7 @@ public class GUIManager : MonoBehaviour {
 		// Initialize an InterstitialAd.
 		interstitial = new InterstitialAd(adUnitId);
 		// Create an empty ad request.
+		// ADD TEST DEVICE HERE
 		AdRequest request = new AdRequest.Builder()
 			.AddTestDevice("A4D94C6CCCC78F95136843C5B0579088")
 			.Build();

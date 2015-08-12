@@ -6,6 +6,9 @@ public abstract class BoardTile : MonoBehaviour {
 	public Board board;
 	protected Animator anim;
 
+	// how many points this tile is worth (for the enemy tiles)
+	public int pointValue;
+
 	public AudioClip click;
 
 	void Awake()
