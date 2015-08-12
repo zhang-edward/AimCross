@@ -216,7 +216,6 @@
      <Compile Include="Assets\GooglePlayGames\Platforms\NearbyConnectionClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
-     <Compile Include="Assets\Scripts\GUIManager.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\Aimer.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerCenter.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerHorizontal.cs" />
@@ -226,10 +225,11 @@
      <Compile Include="Assets\Scripts\Game\Board\BoardTile.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Enemy.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Floor.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\MenuUIManager.cs" />
-     <Compile Include="Assets\Scripts\ScoreManager.cs" />
-     <Compile Include="Assets\Scripts\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GUIManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MenuUIManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
      <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-ar\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-in\common_strings.xml" />

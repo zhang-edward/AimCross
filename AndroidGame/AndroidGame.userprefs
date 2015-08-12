@@ -1,9 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\Board\Enemy.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\Board\Board.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\Board\Board.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Board\Board.cs" Line="86" Column="28" />
       <File FileName="Assets\Scripts\Game\Board\Enemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Board\AreaAffectTile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Board\Floor.cs" Line="8" Column="14" />
+      <File FileName="Assets\Scripts\Game\Board\BoardTile.cs" Line="22" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
