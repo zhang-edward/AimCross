@@ -53,6 +53,11 @@ public class Aimer : MonoBehaviour {
 
 	IEnumerator AimH()
 	{
+		// Tutorial ===============================================//
+		if (GameManager.instance.showTutorial)
+			GameManager.instance.guiManager.setTutorialText(2);
+		// Tutorial ===============================================//
+
 		aimingH = true;
 
 		// set aimerH active and to aiming mode
@@ -72,11 +77,74 @@ public class Aimer : MonoBehaviour {
 
 		aimingH = false;
 
+		// Tutorial ===============================================//
+		if (GameManager.instance.showTutorial)
+		{
+			Board board = GameManager.instance.board;
+			bool enemyFound = false;
+
+			// Check if the player selected a row with an enemy tile in it
+			int rowToCheck = (int)aimerH.targetY;
+			int i = 0;
+			while(i < Board.boardSize && !enemyFound)
+			{
+				if (board.board[rowToCheck, i] != null)
+					enemyFound = true;
+				Debug.Log (board.board[rowToCheck, i]);
+				i ++;
+			}
+
+			// If no enemy was found, restart the level
+			if (!enemyFound)
+			{
+				GameManager.instance.StopCoroutine("Aim");
+				GameManager.instance.guiManager.setTutorialText(7);
+
+				// pause and wait for player input
+				paused = true;
+				while(!GameManager.getInput())
+					yield return null;
+				paused = false;
+				// wait for end of frame so the same input isn't registered twice
+				yield return new WaitForSeconds(1.0f/60.0f);
+				
+				GameManager.instance.StartCoroutine("Restart");
+			}
+		}
+		// Tutorial ===============================================//
+
 		StartCoroutine("AimV");
 	}
 
 	IEnumerator AimV()
 	{
+		// Tutorial ===============================================//
+		if (GameManager.instance.showTutorial)
+		{
+			GameManager.instance.guiManager.setTutorialText(3);
+
+			// pause and wait for player input
+			paused = true;
+			while(!GameManager.getInput())
+				yield return null;
+			paused = false;
+			// wait for end of frame so the same input isn't registered twice
+			yield return new WaitForSeconds(1.0f/60.0f);
+
+			GameManager.instance.guiManager.setTutorialText(4);
+
+			// pause and wait for player input
+			paused = true;
+			while(!GameManager.getInput())
+				yield return null;
+			paused = false;
+			// wait for end of frame so the same input isn't registered twice
+			yield return new WaitForSeconds(1.0f/60.0f);
+
+			GameManager.instance.guiManager.setTutorialText(5);
+		}
+		// Tutorial ===============================================//
+
 		aimingV = true;
 
 		aimerV.gameObject.SetActive (true);

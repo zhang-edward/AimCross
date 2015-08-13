@@ -225,11 +225,13 @@
      <Compile Include="Assets\Scripts\Game\Board\BoardTile.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Enemy.cs" />
      <Compile Include="Assets\Scripts\Game\Board\Floor.cs" />
-     <Compile Include="Assets\Scripts\Managers\GUIManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\AdManager.cs" />
      <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\GameUIManager.cs" />
      <Compile Include="Assets\Scripts\Managers\MenuUIManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\ToggleScript.cs" />
      <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-ar\common_strings.xml" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-in\common_strings.xml" />

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class SoundManager : MonoBehaviour {
 
-	public AudioSource efxSource;
+	public AudioSource boardEfx;
+	public AudioSource gameEfx;
 
 	public static SoundManager instance = null;
 
@@ -22,24 +23,41 @@ public class SoundManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public void PlaySingle(AudioClip clip)
+	void Update()
+	{
+		if (PlayerPrefs.GetInt("Mute") == 1)
+			boardEfx.mute = true;
+		else
+			boardEfx.mute = false;
+	}
+
+	public void RandomizeSfxBoard(AudioClip clip)
 	{
 		// randomize the pitch of each sound a little bit
 		float randomPitch = Random.Range (lowPitchRange, highPitchRange);
-		efxSource.pitch = randomPitch;
-		efxSource.clip = clip;
-		efxSource.Play();
+		boardEfx.pitch = randomPitch;
+		boardEfx.clip = clip;
+		boardEfx.Play();
 	}
 
-	/*
-	public void RandomizeSfx(params AudioClip[] clips)
+	public void PlaySingleBoard(AudioClip clip)
 	{
-		int randomIndex = Random.Range (0, clips.Length);
+		boardEfx.clip = clip;
+		boardEfx.Play();
+	}
+
+	public void RandomizeSfxGame(AudioClip clip)
+	{
+		// randomize the pitch of each sound a little bit
 		float randomPitch = Random.Range (lowPitchRange, highPitchRange);
-
-		efxSource.pitch = randomPitch;
-		efxSource.clip = clips[randomIndex];
-		efxSource.Play();
-
-	}*/
+		gameEfx.pitch = randomPitch;
+		gameEfx.clip = clip;
+		gameEfx.Play();
+	}
+	
+	public void PlaySingleGame(AudioClip clip)
+	{
+		gameEfx.clip = clip;
+		gameEfx.Play();
+	}
 }

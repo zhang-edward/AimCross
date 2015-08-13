@@ -5,9 +5,9 @@ public class GameManager : MonoBehaviour {
 
 	public static GameManager instance;
 
-	private Board board;					// Reference to the Board object
+	public Board board;					// Reference to the Board object
 
-	public GUIManager guiManager;
+	public GameUIManager guiManager;
 
 	public bool aiming;						// whether the game is waiting for the player to aim or not
 	private Aimer[] aimers = new Aimer[2];	// the two (TODO: make it possible for potentially more) aimers
@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour {
 	public bool paused;
 	public int score;
 
+	public bool showTutorial;
+
 	void Awake()
 	{
 		if (instance == null)
@@ -28,12 +30,25 @@ public class GameManager : MonoBehaviour {
 			Destroy (gameObject);
 
 		board = GetComponentInChildren<Board>();
+
+		aimers[0] = transform.FindChild("Aimer1").GetComponent<Aimer>();
+		aimers[1] = transform.FindChild("Aimer2").GetComponent<Aimer>();
 	}
 	
 	void Start()
 	{
-		aimers[0] = transform.FindChild("Aimer1").GetComponent<Aimer>();
-		aimers[1] = transform.FindChild("Aimer2").GetComponent<Aimer>();
+		//DEBUG! DELETE WHEN BUILDING!!!!!!!!!
+		//PlayerPrefs.DeleteAll();
+		//DEBUG! DELETE WHEN BUILDING!!!!!!!!!
+
+		if (!PlayerPrefs.HasKey("TutorialComplete"))
+		{
+			showTutorial = true;
+			guiManager.highScoreText.gameObject.SetActive (false);
+		}
+
+		else
+			showTutorial = false;
 
 		board.InitBoard();
 		StartCoroutine("Init");
@@ -53,14 +68,23 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	IEnumerator Init()
+	private IEnumerator Init()
 	{
+		// Request Interstitial ad 3 games before it is displayed
+		if (ScoreManager.instance.gamesPlayed % 6 - 3 == 0)
+			AdManager.instance.RequestInterstitial();
+
 		// Initialize the board (place tiles)
 		board.PopulateBoard();
 
 		// wait for the board to be initialized
 		while (!board.populated)
 			yield return null;
+
+		// Tutorial ===============================================//
+		if (showTutorial)
+			guiManager.setTutorialText(1);
+		// Tutorial ===============================================//
 
 		// wait for user to acknowledge that the board has been init'd
 		while (!getInput () || paused)
@@ -73,7 +97,7 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine("Aim");
 	}
 
-	IEnumerator Aim()
+	private IEnumerator Aim()
 	{
 		//Debug.Log("Enter: Aim");
 		aimers[aimerIndex].Aim ();
@@ -100,7 +124,7 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(ProcessAim (targetX, targetY));
 	}
 	
-	IEnumerator ProcessAim(int targetX, int targetY)
+	private IEnumerator ProcessAim(int targetX, int targetY)
 	{
 		//Debug.Log ("Enter: ProcessAim");
 
@@ -113,16 +137,21 @@ public class GameManager : MonoBehaviour {
 			BoardTile enemy = board.board[targetY, targetX];
 			enemy.Hit();
 
+			if (enemy is AreaAffectTile)
+				yield return new WaitForSeconds(0.9f);
+
 			// check if all enemy tiles are cleared
 			if (board.checkIfBoardClear())
 			{
-				SoundManager.instance.PlaySingle(levelUp);
+				SoundManager.instance.RandomizeSfxGame(levelUp);
+
+				foreach(Aimer a in aimers)
+					a.disableAimers();
 
 				// disabled the aimers when regenerating level
 				yield return new WaitForSeconds(1.0f);
-				foreach(Aimer a in aimers)
-					a.disableAimers();
-				
+
+				board.level ++;
 				board.populated = false;
 				
 				StartCoroutine("Init");
@@ -130,7 +159,7 @@ public class GameManager : MonoBehaviour {
 			// normal hit
 			else
 			{
-				SoundManager.instance.PlaySingle(hitGreen);
+				SoundManager.instance.RandomizeSfxGame(hitGreen);
 
 				// shorthand for if aimerIndex is 0, set to 1, else, set to 0
 				// (switch the aimer between blue and purple)
@@ -141,12 +170,23 @@ public class GameManager : MonoBehaviour {
 				StartCoroutine("Aim");
 			}
 
+			// Tutorial ===============================================//
+			if (showTutorial)
+			{
+				guiManager.setTutorialText(6);
+				PlayerPrefs.SetInt("TutorialComplete", 0);
+				showTutorial = false;
+
+				guiManager.highScoreText.gameObject.SetActive (true);
+			}
+			// Tutorial ===============================================//
+
 			// Report the score to the score manager
 			ScoreManager.instance.UpdateScore(score);
 		}
 		else
 		{
-			SoundManager.instance.PlaySingle(hitRed);
+			SoundManager.instance.RandomizeSfxGame(hitRed);
 			// set the aimer's center to animate
 			aimers[aimerIndex].hitTarget (false);
 
@@ -156,8 +196,11 @@ public class GameManager : MonoBehaviour {
 		yield return null;
 	}
 
-	IEnumerator GameOver()
+	public IEnumerator GameOver()
 	{
+		if (ScoreManager.instance.gamesPlayed % 6 == 0)
+			AdManager.instance.ShowInterstitial();
+
 		ScoreManager.instance.GPGReportScore();
 		ScoreManager.instance.gamesPlayed ++;
 
@@ -175,8 +218,8 @@ public class GameManager : MonoBehaviour {
 	{
 		float yBorder = (Camera.main.orthographicSize * 2) * (10.0f / 12.0f) - 3.5f;
 //#if UNITY_EDITOR
-		return Input.GetMouseButtonDown(0) && 
-			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder;
+		return (Input.GetMouseButtonDown(0) && 
+			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder);
 
 //#elif UNITY_ANDROID
 		/*return Input.touchCount > 0 && 

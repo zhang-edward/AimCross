@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public abstract class BoardTile : MonoBehaviour {
@@ -19,7 +19,7 @@ public abstract class BoardTile : MonoBehaviour {
 	public void animate()
 	{
 		anim.SetTrigger ("Hit");
-		SoundManager.instance.PlaySingle(click);
+		SoundManager.instance.RandomizeSfxBoard(click);
 	}
 
 	public abstract void Hit();

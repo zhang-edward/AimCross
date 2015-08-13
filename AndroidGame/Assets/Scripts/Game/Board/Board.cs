@@ -36,10 +36,27 @@ public class Board : MonoBehaviour {
 		}
 	}
 
+	public void PopulateBoardFromLayout(int[,] layout)
+	{
+		boardGen = layout;
+		StartCoroutine("InitBoardAnim");
+	}
+
 	public void PopulateBoard()
 	{
+		// reset the boardGen
+		for (int x = 0; x < boardSize; x ++)
+		{
+			for (int y = 0; y < boardSize; y ++)
+			{
+				boardGen[y, x] = 0;
+			}
+		}
+
 		// Equation to calculate the number of enemies on te board
 		int numEnemies = (int)(20.0f * (Mathf.Log10 (level + 1.0f)));
+
+		Debug.Log (numEnemies);
 
 		if (numEnemies > 18)
 			numEnemies = 18;
