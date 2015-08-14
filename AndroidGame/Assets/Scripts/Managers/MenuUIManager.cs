@@ -17,29 +17,25 @@ public class MenuUIManager : MonoBehaviour {
 
 	void Start()
 	{
+	}
+
+	void Update()
+	{
 		soundToggle.isOn = !SoundManager.instance.GetComponent<AudioSource>().mute;
 
-		Social.localUser.Authenticate((bool success) => {
-			if (success)
-			{
-				PlayerPrefs.SetInt("GPG", 1);
-			}
-		});
+		if (PlayGamesPlatform.Instance.IsAuthenticated())
+		{
+			GPGButtonText.text = "Log Out";
+		}
+		else
+		{
+			GPGButtonText.text = "Log In";
+		}
 	}
 
 	public void PlayGame()
 	{
 		Application.LoadLevel ("Game");
-	}
-
-	public void openSettingsMenu()
-	{
-		settingsMenu.gameObject.SetActive(true);
-	}
-
-	public void closeSettingsMenu()
-	{
-		settingsMenu.gameObject.SetActive(false);
 	}
 
 	public void Mute(bool set)
@@ -56,35 +52,24 @@ public class MenuUIManager : MonoBehaviour {
 
 	public void GPGAchievementsUI()
 	{
-		if (PlayerPrefs.HasKey("GPG") && PlayerPrefs.GetInt("GPG") == 1)
+		//if (Social.localUser.authenticated)
 			Social.ShowAchievementsUI();
-		else
-			GPGAuthenticate();
+		//else
+		//	PlayGame ();
 	}
 	
 	public void GPGLeaderboardsUI()
 	{
-		if (PlayerPrefs.HasKey("GPG") && PlayerPrefs.GetInt("GPG") == 1)
+		//if (Social.localUser.authenticated)
 			Social.ShowLeaderboardUI();
-		else
-			GPGAuthenticate();
+		//else
+		//	PlayGame ();
 	}
 
 	public void GPGAuthenticate()
 	{
-		if (PlayerPrefs.HasKey("GPG") && PlayerPrefs.GetInt("GPG") == 1)
-		{
-			GPGMenu.gameObject.SetActive(true);
-		}
-		else
-		{
-			Social.localUser.Authenticate((bool success) => {
-				if (success)
-				{
-					PlayerPrefs.SetInt("GPG", 1);
-				}
-			});
-		}
+		Social.localUser.Authenticate((bool success) => {
+		});
 	}
 
 	public void WriteReview()

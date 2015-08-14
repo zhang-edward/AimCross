@@ -39,7 +39,7 @@ public class ScoreManager : MonoBehaviour {
 			.Build();
 		PlayGamesPlatform.InitializeInstance(config);
 		// recommended for debugging:
-		PlayGamesPlatform.DebugLogEnabled = true;
+		//PlayGamesPlatform.DebugLogEnabled = true;
 		// Activate the Google Play Games platform
 
 		PlayGamesPlatform.Activate();

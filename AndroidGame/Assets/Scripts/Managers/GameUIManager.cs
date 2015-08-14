@@ -59,6 +59,8 @@ public class GameUIManager : MonoBehaviour {
 		}
 		highScoreText.text = "High Score: " + ScoreManager.instance.highScore.ToString();
 		highScoreTextShadow.text = highScoreText.text;
+
+		soundToggle.isOn = !SoundManager.instance.GetComponent<AudioSource>().mute;
 	}
 
 	public void Pause()
