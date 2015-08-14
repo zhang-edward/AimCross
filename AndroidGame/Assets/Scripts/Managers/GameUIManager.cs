@@ -127,4 +127,9 @@ public class GameUIManager : MonoBehaviour {
 	{
 		Social.ShowLeaderboardUI();
 	}
+
+	public void UISound()
+	{
+		SoundManager.instance.UiSound();
+	}
 }

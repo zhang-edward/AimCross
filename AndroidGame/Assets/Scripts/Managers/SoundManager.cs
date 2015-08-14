@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour {
 
 	public static SoundManager instance = null;
 
+	public AudioClip uiSound;
+
 	public float lowPitchRange = 0.95f;
 	public float highPitchRange = 1.05f;
 
@@ -59,5 +61,11 @@ public class SoundManager : MonoBehaviour {
 	{
 		gameEfx.clip = clip;
 		gameEfx.Play();
+	}
+
+	public void UiSound()
+	{
+		gameEfx.clip = uiSound;
+		gameEfx.Play ();
 	}
 }

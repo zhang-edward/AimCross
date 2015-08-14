@@ -45,10 +45,16 @@ public class GameManager : MonoBehaviour {
 		{
 			showTutorial = true;
 			guiManager.highScoreText.gameObject.SetActive (false);
+			guiManager.tutorialPanel.gameObject.SetActive (true);
 		}
 
 		else
+		{
 			showTutorial = false;
+			guiManager.highScoreText.gameObject.SetActive (true);
+			guiManager.tutorialPanel.gameObject.SetActive (false);
+		}
+
 
 		board.InitBoard();
 		StartCoroutine("Init");

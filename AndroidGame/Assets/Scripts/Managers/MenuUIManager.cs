@@ -86,8 +86,24 @@ public class MenuUIManager : MonoBehaviour {
 		}
 	}
 
+	public void WriteReview()
+	{
+		// TODO: Replace URL with actual app url after package name is determined
+		Application.OpenURL("https://play.google.com/store/apps/details?id=com.ZedStudios.AndroidGame");
+	}
+
 	public void GPGLogOut()
 	{
 		PlayGamesPlatform.Instance.SignOut();
+	}
+
+	public void ClearData()
+	{
+		PlayerPrefs.DeleteAll();
+	}
+
+	public void UISound()
+	{
+		SoundManager.instance.UiSound();
 	}
 }
