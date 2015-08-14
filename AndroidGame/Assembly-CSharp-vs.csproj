@@ -216,6 +216,7 @@
      <Compile Include="Assets\GooglePlayGames\Platforms\NearbyConnectionClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\Platforms\PlayGamesClientFactory.cs" />
      <Compile Include="Assets\GooglePlayGames\PluginVersion.cs" />
+     <Compile Include="Assets\Scripts\ButtonScript.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\Aimer.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerCenter.cs" />
      <Compile Include="Assets\Scripts\Game\Aimer\AimerHorizontal.cs" />

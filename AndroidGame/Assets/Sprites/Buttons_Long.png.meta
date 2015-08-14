@@ -1,20 +1,22 @@
 fileFormatVersion: 2
-guid: 53071e2da1922144ca81072b29bf8270
-timeCreated: 1439322401
+guid: 1ffac85c9857bed429e08fcfb0203ef7
+timeCreated: 1439529071
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UI2_0
-    21300002: UI2_2
-    21300004: UI2_3
-    21300006: UI2_7
-    21300008: UI2_8
-    21300010: UI2_10
-    21300012: UI2_1
-    21300014: UI2_4
-    21300016: UI2_5
-    21300018: UI2_6
-    21300020: UI2_9
+    21300000: Buttons_Long_0
+    21300002: Buttons_Long_1
+    21300004: Buttons_Long_2
+    21300006: Buttons_Long_3
+    21300008: Buttons_Long_4
+    21300010: Buttons_Long_5
+    21300012: Buttons_Long_6
+    21300014: Buttons_Long_7
+    21300016: Buttons_Long_8
+    21300018: Buttons_Long_9
+    21300020: Buttons_Long_10
+    21300022: Buttons_Long_11
+    21300024: Buttons_Long_12
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -60,115 +62,135 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: UI2_0
+    - name: Buttons_Long_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 224
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Long_7
       rect:
         serializedVersion: 2
         x: 0
         y: 96
-        width: 32
+        width: 64
         height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_2
+    - name: Buttons_Long_8
       rect:
         serializedVersion: 2
-        x: 32
-        y: 112
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 112
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_7
-      rect:
-        serializedVersion: 2
-        x: 32
+        x: 64
         y: 96
-        width: 16
-        height: 16
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_8
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 96
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_10
+    - name: Buttons_Long_9
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
-        width: 32
+        y: 32
+        width: 64
         height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_1
+    - name: Buttons_Long_10
       rect:
         serializedVersion: 2
-        x: 32
-        y: 80
-        width: 16
-        height: 16
+        x: 64
+        y: 32
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_4
+    - name: Buttons_Long_11
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
-        width: 16
-        height: 16
+        x: 0
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_5
+    - name: Buttons_Long_12
       rect:
         serializedVersion: 2
-        x: 48
-        y: 80
-        width: 32
-        height: 16
+        x: 64
+        y: 0
+        width: 64
+        height: 32
       alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_6
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 64
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: UI2_9
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 49
-        width: 16
-        height: 15
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

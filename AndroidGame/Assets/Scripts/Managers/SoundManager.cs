@@ -28,9 +28,15 @@ public class SoundManager : MonoBehaviour {
 	void Update()
 	{
 		if (PlayerPrefs.GetInt("Mute") == 1)
+		{
 			boardEfx.mute = true;
+			gameEfx.mute = true;
+		}
 		else
+		{
 			boardEfx.mute = false;
+			gameEfx.mute = false;
+		}
 	}
 
 	public void RandomizeSfxBoard(AudioClip clip)

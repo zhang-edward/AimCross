@@ -13,6 +13,7 @@ public class MenuUIManager : MonoBehaviour {
 
 	public Toggle soundToggle;
 
+	public Text GPGButtonText;
 
 	void Start()
 	{

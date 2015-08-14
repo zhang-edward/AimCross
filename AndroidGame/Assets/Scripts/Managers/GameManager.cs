@@ -88,6 +88,14 @@ public class GameManager : MonoBehaviour {
 			yield return null;
 
 		// Tutorial ===============================================//
+
+		if (PlayerPrefs.HasKey("TutorialComplete"))
+		{
+			showTutorial = false;
+			guiManager.highScoreText.gameObject.SetActive (true);
+			guiManager.tutorialPanel.gameObject.SetActive (false);
+		}
+
 		if (showTutorial)
 			guiManager.setTutorialText(1);
 		// Tutorial ===============================================//
@@ -149,6 +157,7 @@ public class GameManager : MonoBehaviour {
 			// check if all enemy tiles are cleared
 			if (board.checkIfBoardClear())
 			{
+				score += 5;
 				SoundManager.instance.RandomizeSfxGame(levelUp);
 
 				foreach(Aimer a in aimers)
@@ -204,6 +213,11 @@ public class GameManager : MonoBehaviour {
 
 	public IEnumerator GameOver()
 	{
+		// show the player the board
+		yield return new WaitForSeconds(0.5f);
+		foreach(Aimer a in aimers)
+			a.disableAimers();
+
 		if (ScoreManager.instance.gamesPlayed % 6 == 0)
 			AdManager.instance.ShowInterstitial();
 
@@ -222,7 +236,7 @@ public class GameManager : MonoBehaviour {
 
 	public static bool getInput()
 	{
-		float yBorder = (Camera.main.orthographicSize * 2) * (10.0f / 12.0f) - 3.5f;
+		float yBorder = (Camera.main.orthographicSize * 2) * (3.0f / 4.0f) - 3.5f;
 //#if UNITY_EDITOR
 		return (Input.GetMouseButtonDown(0) && 
 			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder);
