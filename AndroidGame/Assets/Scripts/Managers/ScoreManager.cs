@@ -82,13 +82,13 @@ public class ScoreManager : MonoBehaviour {
 	{
 		buttonsPressed ++;
 		GPGIncrementAchievement(
-			"CgkItczL6uMHEAIQAw", buttonsPressed);
+			"CgkItczL6uMHEAIQAw", 1);
 		GPGIncrementAchievement(
-			"CgkItczL6uMHEAIQBA", buttonsPressed);
+			"CgkItczL6uMHEAIQBA", 1);
 		GPGIncrementAchievement(
-			"CgkItczL6uMHEAIQAg", buttonsPressed);
+			"CgkItczL6uMHEAIQAg", 1);
 		GPGIncrementAchievement(
-			"CgkItczL6uMHEAIQCg", buttonsPressed);
+			"CgkItczL6uMHEAIQCg", 1);
 
 	}
 

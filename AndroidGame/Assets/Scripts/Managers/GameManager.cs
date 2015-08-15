@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour {
 	{
 		// Speed of aimer increases logarithmically as level increases
 		// I found this equation just thru a graphing calc and tweaking
-		float speed = (5.0f * Mathf.Log10(board.level + 1.0f) + 4.0f);
+		float speed = (3.0f * Mathf.Log10(board.level + 1.0f) + 4.0f);
 		foreach(Aimer a in aimers)
 			a.aimerSpeed = speed;
 
@@ -222,18 +222,22 @@ public class GameManager : MonoBehaviour {
 
 	public IEnumerator GameOver()
 	{
-		// show the player the board
 		yield return new WaitForSeconds(0.5f);
+		// show the player the board
 		foreach(Aimer a in aimers)
+		{
+			a.aimerH.snap();
+			a.aimerV.snap();
 			a.disableAimers();
+		}
+		yield return new WaitForSeconds(0.5f);
 
-		if (ScoreManager.instance.gamesPlayed % 6 == 0)
+		if (ScoreManager.instance.gamesPlayed % 6 == 0 &&
+		    ScoreManager.instance.gamesPlayed != 0)
 			AdManager.instance.ShowInterstitial();
 
 		ScoreManager.instance.GPGReportScore();
 		ScoreManager.instance.gamesPlayed ++;
-
-		yield return new WaitForSeconds(1.0f);
 
 		guiManager.GameMenu();
 	}

@@ -14,6 +14,7 @@ public class MenuUIManager : MonoBehaviour {
 	public Toggle soundToggle;
 
 	public Text GPGButtonText;
+	public Text GPGButtonShadow;
 
 	void Start()
 	{
@@ -31,6 +32,7 @@ public class MenuUIManager : MonoBehaviour {
 		{
 			GPGButtonText.text = "Log In";
 		}
+		GPGButtonShadow.text = GPGButtonText.text;
 	}
 
 	public void PlayGame()
@@ -75,7 +77,7 @@ public class MenuUIManager : MonoBehaviour {
 	public void WriteReview()
 	{
 		// TODO: Replace URL with actual app url after package name is determined
-		Application.OpenURL("https://play.google.com/store/apps/details?id=com.ZedStudios.AndroidGame");
+		Application.OpenURL("https://play.google.com/store/apps/details?id=com.ZedStudios.AimCross");
 	}
 
 	public void GPGLogOut()

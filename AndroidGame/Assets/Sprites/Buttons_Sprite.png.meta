@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 498b246245999324ba57325dbd778b1b
-timeCreated: 1439529117
+timeCreated: 1439617926
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -10,6 +10,8 @@ TextureImporter:
     21300006: Buttons_Sprite_3
     21300008: Buttons_Sprite_4
     21300010: Buttons_Sprite_6
+    21300012: Buttons_Sprite_5
+    21300014: Buttons_Sprite_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -63,7 +65,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Buttons_Sprite_1
       rect:
@@ -73,7 +75,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Buttons_Sprite_2
       rect:
@@ -83,7 +85,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Buttons_Sprite_3
       rect:
@@ -93,7 +95,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Buttons_Sprite_4
       rect:
@@ -111,6 +113,26 @@ TextureImporter:
         x: 32
         y: 32
         width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Sprite_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Sprite_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: .5, y: .5}

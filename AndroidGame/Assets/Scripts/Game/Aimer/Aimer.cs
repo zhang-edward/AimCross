@@ -140,6 +140,16 @@ public class Aimer : MonoBehaviour {
 			// wait for end of frame so the same input isn't registered twice
 			yield return new WaitForSeconds(1.0f/60.0f);
 
+			GameManager.instance.guiManager.setTutorialText (8);
+
+			// pause and wait for player input
+			paused = true;
+			while(!GameManager.getInput())
+				yield return null;
+			paused = false;
+			// wait for end of frame so the same input isn't registered twice
+			yield return new WaitForSeconds(1.0f/60.0f);
+
 			GameManager.instance.guiManager.setTutorialText(5);
 		}
 		// Tutorial ===============================================//

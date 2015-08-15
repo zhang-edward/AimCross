@@ -116,6 +116,8 @@ public class GameUIManager : MonoBehaviour {
 			tutorialText.text = "Nice!\nNow clear\nthe board!";
 		else if (textNumber == 7)
 			tutorialText.text = "Oops!\nClick to\ntry again";
+		else if (textNumber == 8)
+			tutorialText.text = "Darker tiles\nwill clear the\ntiles adjacent\nto them";
 
 		tutorialTextShadow.text = tutorialText.text;
 
