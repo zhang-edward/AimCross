@@ -171,6 +171,9 @@ public class GameManager : MonoBehaviour {
 				foreach(Aimer a in aimers)
 					a.disableAimers();
 
+				ScoreManager.instance.GPGUnlockAchievement(
+					"CgkItczL6uMHEAIQBg");
+
 				// disabled the aimers when regenerating level
 				yield return new WaitForSeconds(1.0f);
 
