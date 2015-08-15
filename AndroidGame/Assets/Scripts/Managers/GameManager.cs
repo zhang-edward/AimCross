@@ -113,6 +113,12 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator Aim()
 	{
+		// Speed of aimer increases logarithmically as level increases
+		// I found this equation just thru a graphing calc and tweaking
+		float speed = (5.0f * Mathf.Log10(board.level + 1.0f) + 4.0f);
+		foreach(Aimer a in aimers)
+			a.aimerSpeed = speed;
+
 		//Debug.Log("Enter: Aim");
 		aimers[aimerIndex].Aim ();
 
@@ -151,8 +157,10 @@ public class GameManager : MonoBehaviour {
 			BoardTile enemy = board.board[targetY, targetX];
 			enemy.Hit();
 
-			if (enemy is AreaAffectTile)
-				yield return new WaitForSeconds(0.9f);
+			// if the board is waiting for the button to process, stop
+			// the coroutine from continuing
+			while (board.waiting)
+				yield return null;
 
 			// check if all enemy tiles are cleared
 			if (board.checkIfBoardClear())
@@ -192,7 +200,8 @@ public class GameManager : MonoBehaviour {
 				PlayerPrefs.SetInt("TutorialComplete", 0);
 				showTutorial = false;
 
-				guiManager.highScoreText.gameObject.SetActive (true);
+				ScoreManager.instance.GPGUnlockAchievement(
+					"CgkItczL6uMHEAIQAQ");
 			}
 			// Tutorial ===============================================//
 

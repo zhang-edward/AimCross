@@ -15,6 +15,7 @@ public class ScoreManager : MonoBehaviour {
 	public int highScore;
 
 	public int gamesPlayed;
+	public int buttonsPressed;
 
 	public static ScoreManager instance;
 
@@ -44,7 +45,7 @@ public class ScoreManager : MonoBehaviour {
 
 		PlayGamesPlatform.Activate();
 	}
-	
+
 	public void UpdateScore(int score)
 	{
 		lastScore = score;
@@ -53,11 +54,54 @@ public class ScoreManager : MonoBehaviour {
 
 		// store the high score locally
 		PlayerPrefs.SetInt ("High Score", highScore);
+
+		if (highScore >= 50)
+		{
+			GPGUnlockAchievement(
+				"CgkItczL6uMHEAIQBQ");
+		}
+		if (highScore >= 100)
+		{
+			GPGUnlockAchievement(
+				"CgkItczL6uMHEAIQCA");
+		}
+		if (highScore >= 175)
+		{
+			GPGUnlockAchievement(
+				"CgkItczL6uMHEAIQCQ");
+		}
 	}
 
 	public void GPGReportScore()
 	{
 		Social.ReportScore(highScore, "CgkItczL6uMHEAIQBw", (bool success) => {
+		});
+	}
+
+	public void IncrementButtonsPressed()
+	{
+		buttonsPressed ++;
+		GPGIncrementAchievement(
+			"CgkItczL6uMHEAIQAw", buttonsPressed);
+		GPGIncrementAchievement(
+			"CgkItczL6uMHEAIQBA", buttonsPressed);
+		GPGIncrementAchievement(
+			"CgkItczL6uMHEAIQAg", buttonsPressed);
+		GPGIncrementAchievement(
+			"CgkItczL6uMHEAIQCg", buttonsPressed);
+
+	}
+
+	public void GPGUnlockAchievement(string code)
+	{
+		Social.ReportProgress(code, 100.0f, (bool success) => {
+		});
+	}
+
+	public void GPGIncrementAchievement(string code, int progress)
+	{
+		PlayGamesPlatform.Instance.IncrementAchievement(
+			code, progress, (bool success) => {
 		});
 	}
 }

@@ -18,6 +18,9 @@ public class Board : MonoBehaviour {
 
 	public int level;
 
+	public bool waiting;		// makes GameManager wait until all buttons are finished pressing before aiming again
+	public float waitTimer;
+
 	// TODO: spawn a set number of enemy tiles per level instead of just random
 	void Start()
 	{
@@ -54,12 +57,10 @@ public class Board : MonoBehaviour {
 		}
 
 		// Equation to calculate the number of enemies on te board
-		int numEnemies = (int)(20.0f * (Mathf.Log10 (level + 1.0f)));
+		int numEnemies = (int)(10.0f * (Mathf.Log10 (level + 1.0f)) + 2);
 
-		Debug.Log (numEnemies);
-
-		if (numEnemies > 18)
-			numEnemies = 18;
+		if (numEnemies > 15)
+			numEnemies = 15;
 
 		while (numEnemies > 0)
 		{
@@ -68,7 +69,7 @@ public class Board : MonoBehaviour {
 
 			if (boardGen[randY, randX] == 0)
 			{
-				if (Random.value < 0.80)
+				if (Random.value < 0.75f)
 					boardGen[randY, randX] = 1;
 				else
 					boardGen[randY, randX] = 2;
@@ -76,8 +77,6 @@ public class Board : MonoBehaviour {
 				numEnemies --;
 			}
 		}
-
-
 		StartCoroutine("InitBoardAnim");
 	}
 
@@ -149,5 +148,31 @@ public class Board : MonoBehaviour {
 			}
 		}
 		return true;
+	}
+
+	public void Wait()
+	{
+		// if waitTimer coroutine has been started already
+		if (waitTimer > 0)
+		{
+			waitTimer = 0.9f;
+		}
+		else
+		{
+			waitTimer = 0.9f;
+			StartCoroutine("WaitForButtonProcess");
+		}
+	}
+
+	IEnumerator WaitForButtonProcess()
+	{
+		waiting = true;
+		while (waitTimer > 0)
+		{
+			waitTimer -= Time.deltaTime;
+			yield return null;
+		}
+		waiting = false;
+		yield return null;
 	}
 }

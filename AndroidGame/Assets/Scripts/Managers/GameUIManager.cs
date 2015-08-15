@@ -22,6 +22,7 @@ public class GameUIManager : MonoBehaviour {
 	public AudioClip tutorialSound;
 	public GameObject tutorialPanel;
 	public Text tutorialText;
+	public Text tutorialTextShadow;
 
 	public Text gameMenuScore;
 
@@ -104,17 +105,19 @@ public class GameUIManager : MonoBehaviour {
 		if (textNumber == 1)
 			tutorialText.text = "Tap the screen\nto begin";
 		else if (textNumber == 2)
-			tutorialText.text = "Tap when the bar\nmoves over a\nred button!";
+			tutorialText.text = "Tap when the\nbar moves over\na red button";
 		else if (textNumber == 3)
 			tutorialText.text = "This row is\nconcealed from\nview now";
 		else if (textNumber == 4)
-			tutorialText.text = "Do you\nremember where\n the button was?";
+			tutorialText.text = "Do you\nremember where\n the button is?";
 		else if (textNumber == 5)
-			tutorialText.text = "Tap again when\nthe bar moves\nover the\nred button!";
+			tutorialText.text = "Tap again when\nthe bar moves\nover the\nred button";
 		else if (textNumber == 6)
-			tutorialText.text = "Good Job!\nNow clear the board!";
+			tutorialText.text = "Nice!\nNow clear\nthe board!";
 		else if (textNumber == 7)
-			tutorialText.text = "Oops!\nClick to try again";
+			tutorialText.text = "Oops!\nClick to\ntry again";
+
+		tutorialTextShadow.text = tutorialText.text;
 
 		tutorialPanel.GetComponent<Animation>().Play();
 		SoundManager.instance.PlaySingleGame(tutorialSound);

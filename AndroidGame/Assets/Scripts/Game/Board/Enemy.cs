@@ -5,6 +5,7 @@ public class Enemy : BoardTile {
 		
 	public override void Hit()
 	{
+		ScoreManager.instance.IncrementButtonsPressed();
 		GameManager.instance.score += pointValue;
 
 		int x = (int)transform.position.x;

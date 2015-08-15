@@ -22,9 +22,6 @@ public class Aimer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		aimerH.speed = aimerSpeed;
-		aimerV.speed = aimerSpeed;
-
 		// give aimerH and aimerV references to aimerC to set its position
 		aimerH.aimerC = this.aimerC;
 		aimerV.aimerC = this.aimerC;
@@ -53,6 +50,9 @@ public class Aimer : MonoBehaviour {
 
 	IEnumerator AimH()
 	{
+		aimerH.speed = aimerSpeed;
+		aimerV.speed = aimerSpeed;
+
 		// Tutorial ===============================================//
 		if (GameManager.instance.showTutorial)
 			GameManager.instance.guiManager.setTutorialText(2);
@@ -90,7 +90,6 @@ public class Aimer : MonoBehaviour {
 			{
 				if (board.board[rowToCheck, i] != null)
 					enemyFound = true;
-				Debug.Log (board.board[rowToCheck, i]);
 				i ++;
 			}
 
