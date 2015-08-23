@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 		//PlayerPrefs.DeleteAll();
 		//DEBUG! DELETE WHEN BUILDING!!!!!!!!!
 
-		if (!PlayerPrefs.HasKey("TutorialComplete"))
+/*		if (!PlayerPrefs.HasKey("TutorialComplete"))
 		{
 			showTutorial = true;
 			guiManager.highScoreText.gameObject.SetActive (false);
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 			showTutorial = false;
 			guiManager.highScoreText.gameObject.SetActive (true);
 			guiManager.tutorialPanel.gameObject.SetActive (false);
-		}
+		}*/
 
 
 		board.InitBoard();
@@ -87,19 +87,6 @@ public class GameManager : MonoBehaviour {
 		while (!board.populated)
 			yield return null;
 
-		// Tutorial ===============================================//
-
-		if (PlayerPrefs.HasKey("TutorialComplete"))
-		{
-			showTutorial = false;
-			guiManager.highScoreText.gameObject.SetActive (true);
-			guiManager.tutorialPanel.gameObject.SetActive (false);
-		}
-
-		if (showTutorial)
-			guiManager.setTutorialText(1);
-		// Tutorial ===============================================//
-
 		// wait for user to acknowledge that the board has been init'd
 		while (!getInput () || paused)
 			yield return null;
@@ -115,7 +102,7 @@ public class GameManager : MonoBehaviour {
 	{
 		// Speed of aimer increases logarithmically as level increases
 		// I found this equation just thru a graphing calc and tweaking
-		float speed = (3.0f * Mathf.Log10(board.level + 1.0f) + 4.0f);
+		float speed = (3.0f * Mathf.Log10(board.level + 1.0f) + 3.5f);
 		foreach(Aimer a in aimers)
 			a.aimerSpeed = speed;
 
@@ -196,7 +183,7 @@ public class GameManager : MonoBehaviour {
 				StartCoroutine("Aim");
 			}
 
-			// Tutorial ===============================================//
+/*			// Tutorial ===============================================//
 			if (showTutorial)
 			{
 				guiManager.setTutorialText(6);
@@ -206,7 +193,7 @@ public class GameManager : MonoBehaviour {
 				ScoreManager.instance.GPGUnlockAchievement(
 					"CgkItczL6uMHEAIQAQ");
 			}
-			// Tutorial ===============================================//
+			// Tutorial ===============================================//*/
 
 			// Report the score to the score manager
 			ScoreManager.instance.UpdateScore(score);
@@ -229,8 +216,6 @@ public class GameManager : MonoBehaviour {
 		// show the player the board
 		foreach(Aimer a in aimers)
 		{
-			a.aimerH.snap();
-			a.aimerV.snap();
 			a.disableAimers();
 		}
 		yield return new WaitForSeconds(0.5f);

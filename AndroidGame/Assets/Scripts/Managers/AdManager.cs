@@ -56,7 +56,7 @@ public class AdManager : MonoBehaviour {
 			BANNER_ID, AdSize.SmartBanner, AdPosition.Top);
 		// Create an empty ad request.
 		AdRequest request = new AdRequest.Builder()
-			.AddTestDevice("A4D94C6CCCC78F95136843C5B0579088")
+			//.AddTestDevice("A4D94C6CCCC78F95136843C5B0579088")
 			.Build();
 		// Load the banner with the request.
 		bannerView.LoadAd(request);

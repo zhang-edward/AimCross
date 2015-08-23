@@ -155,11 +155,11 @@ public class Board : MonoBehaviour {
 		// if waitTimer coroutine has been started already
 		if (waitTimer > 0)
 		{
-			waitTimer = 0.9f;
+			waitTimer = 1.0f;
 		}
 		else
 		{
-			waitTimer = 0.9f;
+			waitTimer = 1.0f;
 			StartCoroutine("WaitForButtonProcess");
 		}
 	}

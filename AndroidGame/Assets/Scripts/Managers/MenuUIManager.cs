@@ -37,7 +37,10 @@ public class MenuUIManager : MonoBehaviour {
 
 	public void PlayGame()
 	{
-		Application.LoadLevel ("Game");
+		if (PlayerPrefs.HasKey ("TutorialComplete"))
+			Application.LoadLevel ("Game");
+		else
+			Application.LoadLevel ("Tutorial");
 	}
 
 	public void Mute(bool set)
@@ -54,24 +57,31 @@ public class MenuUIManager : MonoBehaviour {
 
 	public void GPGAchievementsUI()
 	{
-		//if (Social.localUser.authenticated)
+		if (Social.localUser.authenticated)
 			Social.ShowAchievementsUI();
-		//else
-		//	PlayGame ();
+		else
+			GPGAuthenticate();
 	}
 	
 	public void GPGLeaderboardsUI()
 	{
-		//if (Social.localUser.authenticated)
+		if (Social.localUser.authenticated)
 			Social.ShowLeaderboardUI();
-		//else
-		//	PlayGame ();
+		else
+			GPGAuthenticate();
 	}
 
 	public void GPGAuthenticate()
 	{
-		Social.localUser.Authenticate((bool success) => {
-		});
+		if (Social.localUser.authenticated)
+		{
+			GPGMenu.SetActive(true);
+		}
+		else
+		{
+			Social.localUser.Authenticate((bool success) => {
+			});
+		}
 	}
 
 	public void WriteReview()

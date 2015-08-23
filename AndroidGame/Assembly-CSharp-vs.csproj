@@ -232,6 +232,8 @@
      <Compile Include="Assets\Scripts\Managers\MenuUIManager.cs" />
      <Compile Include="Assets\Scripts\Managers\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Managers\SoundManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\TutorialGameManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\TutorialUIManager.cs" />
      <Compile Include="Assets\Scripts\ToggleScript.cs" />
      <None Include="Assets\GooglePlayGames\Editor\Podfile.txt" />
      <None Include="Assets\Plugins\Android\google-play-services_lib\res\values-ar\common_strings.xml" />

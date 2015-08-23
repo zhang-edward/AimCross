@@ -11,8 +11,6 @@ public class Aimer : MonoBehaviour {
 	// time in seconds to wait before the aimer moves
 	public float aimerSpeed = 8.0f;
 
-	public bool aimingH = false;		// whether this aimer is currently aiming the horizontal aimer
-	public bool aimingV = false;		// whether this aimer is currently aiming the vertical aimer
 	public bool aimed = false;
 
 	public int targetX;
@@ -20,6 +18,8 @@ public class Aimer : MonoBehaviour {
 
 	public bool paused;
 
+	public bool inputDisabled = false;	// used only in TutorialGameManager
+	
 	// Use this for initialization
 	void Start () {
 		// give aimerH and aimerV references to aimerC to set its position
@@ -36,15 +36,13 @@ public class Aimer : MonoBehaviour {
 	{
 		if (paused)
 		{
-			aimerH.aiming = false;
-			aimerV.aiming = false;
+			aimerH.paused = true;
+			aimerV.paused = true;
 		}
 		else
 		{
-			if (aimingH)
-				aimerH.aiming = true;
-			else if (aimingV)
-				aimerV.aiming = true;
+			aimerH.paused = false;
+			aimerV.paused = false;
 		}
 	}
 
@@ -53,31 +51,26 @@ public class Aimer : MonoBehaviour {
 		aimerH.speed = aimerSpeed;
 		aimerV.speed = aimerSpeed;
 
-		// Tutorial ===============================================//
-		if (GameManager.instance.showTutorial)
-			GameManager.instance.guiManager.setTutorialText(2);
-		// Tutorial ===============================================//
-
-		aimingH = true;
-
 		// set aimerH active and to aiming mode
 		aimerH.gameObject.SetActive (true);
 		aimerH.aiming = true;
 		// if the mouse button isn't pressed or if paused, do nothing
-		while (!GameManager.getInput() || paused)
+		while (aimerH.aiming || paused)
 		{
+			if (GameManager.getInput() && !paused && !inputDisabled)
+			{
+				// stops aiming mode
+				aimerH.aiming = false;
+			}
 			yield return null;
 		}
 		// wait for end of frame so the same input isn't registered twice
 		yield return new WaitForSeconds(1.0f/60.0f);
 		
-		// stops aiming mode and snaps aimerH to an integer x and y position
-		aimerH.aiming = false;
+		// snaps aimerH to an integer x and y position
 		aimerH.snap();
 
-		aimingH = false;
-
-		// Tutorial ===============================================//
+		/*// Tutorial ===============================================//
 		if (GameManager.instance.showTutorial)
 		{
 			Board board = GameManager.instance.board;
@@ -96,28 +89,28 @@ public class Aimer : MonoBehaviour {
 			// If no enemy was found, restart the level
 			if (!enemyFound)
 			{
-				GameManager.instance.StopCoroutine("Aim");
-				GameManager.instance.guiManager.setTutorialText(7);
+				TutorialGameManager.instance.StopCoroutine("Aim");
+				TutorialGameManager.instance.guiManager.setTutorialText();
 
 				// pause and wait for player input
 				paused = true;
-				while(!GameManager.getInput())
+				while(!TutorialGameManager.getInput())
 					yield return null;
 				paused = false;
 				// wait for end of frame so the same input isn't registered twice
 				yield return new WaitForSeconds(1.0f/60.0f);
 				
-				GameManager.instance.StartCoroutine("Restart");
+				TutorialGameManager.instance.StartCoroutine("Restart");
 			}
 		}
-		// Tutorial ===============================================//
+		// Tutorial ===============================================//*/
 
 		StartCoroutine("AimV");
 	}
 
 	IEnumerator AimV()
 	{
-		// Tutorial ===============================================//
+		/*// Tutorial ===============================================//
 		if (GameManager.instance.showTutorial)
 		{
 			GameManager.instance.guiManager.setTutorialText(3);
@@ -153,29 +146,31 @@ public class Aimer : MonoBehaviour {
 			GameManager.instance.guiManager.setTutorialText(5);
 		}
 		// Tutorial ===============================================//
-
-		aimingV = true;
+*/
 
 		aimerV.gameObject.SetActive (true);
 		aimerC.GetComponent<SpriteRenderer>().enabled = true;
 
 		aimerV.aiming = true;
 		// if the mouse button isn't pressed or if paused, do nothing
-		while (!GameManager.getInput() || paused)
+		while (aimerV.aiming || paused)
 		{
+			if (GameManager.getInput() && !paused && !inputDisabled)
+			{
+				aimerV.aiming = false;
+			}
 			yield return null;
 		}
 		// wait for end of frame so the same input isn't registered twice
 		yield return new WaitForSeconds(1.0f/60.0f);
 
-		aimerV.aiming = false;
 		aimerV.snap();
 
 		// set the target coordinates
 		targetY = (int)aimerH.targetY;
 		targetX = (int)aimerV.targetX;
 
-		aimingV = false;
+
 		// set this aimer to aimed mode
 		aimed = true;
 	}

@@ -1,15 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\ScoreManager.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Managers\GameUIManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\ToggleScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ButtonScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game\Board\AreaAffectTile.cs" Line="1" Column="1" />
-      <File FileName="c:\Users\Edward\Desktop\Dev\GameDev\GitHub Project\Android-Game\AndroidGame\Assets\Scripts\Game\Board\BoardTile.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Managers\GameUIManager.cs" Line="127" Column="2" />
-      <File FileName="Assets\Scripts\Managers\MenuUIManager.cs" Line="31" Column="4" />
-      <File FileName="Assets\Scripts\Managers\GameManager.cs" Line="222" Column="1" />
-      <File FileName="Assets\Scripts\Managers\ScoreManager.cs" Line="43" Column="39" />
+      <File FileName="Assets\Scripts\Managers\GameUIManager.cs" Line="20" Column="34" />
+      <File FileName="Assets\Scripts\Managers\GameManager.cs" Line="44" Column="3" />
+      <File FileName="Assets\Scripts\Managers\MenuUIManager.cs" Line="36" Column="3" />
+      <File FileName="Assets\Scripts\Managers\ScoreManager.cs" Line="51" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

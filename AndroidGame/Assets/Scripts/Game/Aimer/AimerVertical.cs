@@ -11,6 +11,7 @@ public class AimerVertical : MonoBehaviour {
 	public AimerCenter aimerC;
 
 	public bool aiming;
+	public bool paused;
 	public float speed;
 	
 	public GameObject prefabTop;
@@ -51,7 +52,7 @@ public class AimerVertical : MonoBehaviour {
 	
 	void Update()
 	{
-		if (aiming)
+		if (aiming && !paused)
 		{
 			counter += speed * Time.deltaTime;
 			float xPos = Mathf.PingPong(counter, boardSize - 1);

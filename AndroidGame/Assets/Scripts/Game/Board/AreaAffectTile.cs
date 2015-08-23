@@ -6,7 +6,10 @@ public class AreaAffectTile : BoardTile {
 	public override void Hit()
 	{
 		ScoreManager.instance.IncrementButtonsPressed();
-		GameManager.instance.score += pointValue;
+		if (Application.loadedLevelName.Equals("Tutorial"))
+			TutorialGameManager.instance.score += pointValue;
+		else
+			GameManager.instance.score += pointValue;
 
 		int x = (int)transform.position.x;
 		int y = (int)transform.position.y;
@@ -22,6 +25,7 @@ public class AreaAffectTile : BoardTile {
 
 	IEnumerator AreaEffect(int x, int y)
 	{
+		this.GetComponent<SpriteRenderer>().enabled = false;
 		// set the board to wait for this button to process
 		board.Wait ();
 		for (int xOffset = -1; xOffset <= 1; xOffset ++)

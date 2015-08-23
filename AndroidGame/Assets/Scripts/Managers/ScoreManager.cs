@@ -32,6 +32,9 @@ public class ScoreManager : MonoBehaviour {
 
 	void Start()
 	{
+		if (!PlayerPrefs.HasKey("TutorialComplete"))
+			PlayerPrefs.SetInt ("TutorialLevel", 1);
+
 		// get the high score from the playerPrefs
 		highScore = PlayerPrefs.GetInt("High Score");
 		gamesPlayed = PlayerPrefs.GetInt ("Games Played");
@@ -44,6 +47,11 @@ public class ScoreManager : MonoBehaviour {
 		// Activate the Google Play Games platform
 
 		PlayGamesPlatform.Activate();
+
+		Social.localUser.Authenticate((bool success) => {
+		});
+
+		Application.targetFrameRate = 35;
 	}
 
 	public void UpdateScore(int score)
@@ -52,23 +60,27 @@ public class ScoreManager : MonoBehaviour {
 		if (lastScore > highScore)
 			highScore = lastScore;
 
-		// store the high score locally
-		PlayerPrefs.SetInt ("High Score", highScore);
-
-		if (highScore >= 50)
+		// if this level is not the tutorial
+		if (Application.loadedLevelName.Equals("Game"))
 		{
-			GPGUnlockAchievement(
-				"CgkItczL6uMHEAIQBQ");
-		}
-		if (highScore >= 100)
-		{
-			GPGUnlockAchievement(
-				"CgkItczL6uMHEAIQCA");
-		}
-		if (highScore >= 175)
-		{
-			GPGUnlockAchievement(
-				"CgkItczL6uMHEAIQCQ");
+			// store the high score locally
+			PlayerPrefs.SetInt ("High Score", highScore);
+			
+			if (highScore >= 50)
+			{
+				GPGUnlockAchievement(
+					"CgkItczL6uMHEAIQBQ");
+			}
+			if (highScore >= 100)
+			{
+				GPGUnlockAchievement(
+					"CgkItczL6uMHEAIQCA");
+			}
+			if (highScore >= 175)
+			{
+				GPGUnlockAchievement(
+					"CgkItczL6uMHEAIQCQ");
+			}
 		}
 	}
 
