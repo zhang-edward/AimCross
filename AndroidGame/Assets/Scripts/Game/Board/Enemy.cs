@@ -2,7 +2,13 @@
 using System.Collections;
 
 public class Enemy : BoardTile {
-		
+
+	void Start()
+	{
+		anim.clip = ThemeManager.instance.themes[ThemeManager.instance.themeIndex].enemyPressed;
+	}
+
+
 	public override void Hit()
 	{
 		ScoreManager.instance.IncrementButtonsPressed();

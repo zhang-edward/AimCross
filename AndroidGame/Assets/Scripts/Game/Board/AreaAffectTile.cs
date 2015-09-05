@@ -3,6 +3,11 @@ using System.Collections;
 
 public class AreaAffectTile : BoardTile {
 
+	void Start()
+	{
+		anim.clip = ThemeManager.instance.themes[ThemeManager.instance.themeIndex].enemyPressed;
+	}
+
 	public override void Hit()
 	{
 		ScoreManager.instance.IncrementButtonsPressed();

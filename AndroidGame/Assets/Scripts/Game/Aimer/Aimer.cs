@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Aimer : MonoBehaviour {
+	
+	public int aimerNumber; 	// 1 or 0
 
 	// Aimer Prefabs: Horizontal, Vertical, Center
 	public AimerHorizontal aimerH;
@@ -22,6 +24,29 @@ public class Aimer : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		Theme th = ThemeManager.instance.themes[ThemeManager.instance.themeIndex];
+		if (aimerNumber == 0)
+		{
+			aimerH.prefabLeft.GetComponent<SpriteRenderer>().sprite = th.aimerH[0];
+			aimerH.prefabMid.GetComponent<SpriteRenderer>().sprite = th.aimerH[1];
+			aimerH.prefabRight.GetComponent<SpriteRenderer>().sprite = th.aimerH[2];
+			aimerV.prefabTop.GetComponent<SpriteRenderer>().sprite = th.aimerV[0];
+			aimerV.prefabMid.GetComponent<SpriteRenderer>().sprite = th.aimerV[1];
+			aimerV.prefabBottom.GetComponent<SpriteRenderer>().sprite = th.aimerV[2];
+		}
+		else
+		{
+			aimerH.prefabLeft.GetComponent<SpriteRenderer>().sprite = th.aimerH[3];
+			aimerH.prefabMid.GetComponent<SpriteRenderer>().sprite = th.aimerH[4];
+			aimerH.prefabRight.GetComponent<SpriteRenderer>().sprite = th.aimerH[5];
+			aimerV.prefabTop.GetComponent<SpriteRenderer>().sprite = th.aimerV[3];
+			aimerV.prefabMid.GetComponent<SpriteRenderer>().sprite = th.aimerV[4];
+			aimerV.prefabBottom.GetComponent<SpriteRenderer>().sprite = th.aimerV[5];
+		}
+
+
+
+
 		// give aimerH and aimerV references to aimerC to set its position
 		aimerH.aimerC = this.aimerC;
 		aimerV.aimerC = this.aimerC;
