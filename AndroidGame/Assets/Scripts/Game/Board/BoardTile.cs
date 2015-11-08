@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class BoardTile : MonoBehaviour {
 
 	public Board board;
-	protected Animation anim;
+	protected Animator anim;
 
 	// how many points this tile is worth (for the enemy tiles)
 	public int pointValue;
@@ -13,13 +13,12 @@ public abstract class BoardTile : MonoBehaviour {
 
 	void Awake()
 	{
-		anim = GetComponent<Animation>();
+		anim = GetComponent<Animator>();
 	}
-
 
 	public void animate()
 	{
-		anim.Play();
+		anim.SetTrigger ("Hit");
 		SoundManager.instance.RandomizeSfxBoard(click);
 	}
 

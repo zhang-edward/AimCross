@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour {
 			guiManager.tutorialPanel.gameObject.SetActive (false);
 		}*/
 
+
 		board.InitBoard();
 		StartCoroutine("Init");
 	}
