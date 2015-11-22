@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TutorialGameManager : MonoBehaviour {
@@ -7,7 +7,7 @@ public class TutorialGameManager : MonoBehaviour {
 	
 	public Board board;					// Reference to the Board object
 	
-	public TutorialUIManager guiManager;
+	public TutorialUI guiManager;
 	
 	public bool aiming;						// whether the game is waiting for the player to aim or not
 	private Aimer[] aimers = new Aimer[2];	// the two (TODO: make it possible for potentially more) aimers
@@ -296,11 +296,11 @@ public class TutorialGameManager : MonoBehaviour {
 			
 			// if the board is waiting for the button to process, stop
 			// the coroutine from continuing
-			while (board.waiting)
+			while (board.Waiting)
 				yield return null;
 			
 			// check if all enemy tiles are cleared
-			if (board.checkIfBoardClear())
+			if (board.CheckIfBoardClear())
 			{
 				score = 0;
 

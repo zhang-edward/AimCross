@@ -1,35 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class AimerHorizontal : MonoBehaviour {
-
-	// References to Board object properties
-	public Board board;
-	int boardSize;
-
-	// Reference to the AimerCenter object to set its position
-	public AimerCenter aimerC;
-	
-	public bool aiming;		// whether this aimer bar is aiming
-	public bool paused;
-	public float speed;		// speed of the aimer (higher = faster)
+public class AimerHorizontal : AimerBar {
 
 	// prefabs for left, middle, and right sprites
-	public GameObject prefabLeft;
+	public Sprite left;
+	public Sprite mid;
+	public Sprite right;
+/*	public GameObject prefabLeft;
 	public GameObject prefabMid;
-	public GameObject prefabRight;
+	public GameObject prefabRight;*/
 
 	// The y coordinate after this aimer has finished aiming
 	public float targetY;
 
-	/* Custom timer for Mathf.PingPong when the aimer is aiming
-	 * Counter will stop when the aimer stops, thus conserving the
-	 * position of the aimer so when it calls Mathf.PingPong again,
-	 * it will continue from its current position
-	 * 
-	 * This is needed because Mathf.PingPong is a simple function
-	 * */
-	private float counter = 0.0f;
+
 
 	// TODO: create an effect for when the bar appears in OnEnabled()
 
@@ -38,19 +23,29 @@ public class AimerHorizontal : MonoBehaviour {
 		// Create the sprites that make up the bar
 		boardSize = Board.boardSize;
 
-		CreateAimerPiece (prefabLeft, -boardSize / 2);
-		CreateAimerPiece (prefabRight, boardSize / 2 - 1);
+		CreateAimerPiece (aimerPrefab, -boardSize / 2, 0);
+		CreateAimerPiece (aimerPrefab, boardSize / 2 - 1, 2);
 		// the starting and stopping i values are +1 and -1 to exclude the left and right pieces
 		for (int i = -boardSize / 2 + 1; i < boardSize / 2 - 1; i ++)
 		{
-			CreateAimerPiece(prefabMid, i);
+			CreateAimerPiece(aimerPrefab, i, 1);
 		}
 	}
 
-	void CreateAimerPiece(GameObject prefab, int xPos)
+	// for param pos, 0 is left, 1 is mid, 2 is right
+	void CreateAimerPiece(GameObject prefab, int xPos, int pos)
 	{
 		// set the World Position to this instance
 		GameObject o = Instantiate (prefab, this.transform.position, Quaternion.identity) as GameObject;
+
+		// set the appropriate sprite
+		if (pos == 0)
+			o.GetComponent<SpriteRenderer>().sprite = left;
+		else if (pos == 1)
+			o.GetComponent<SpriteRenderer>().sprite = mid;
+		else if (pos == 2)
+			o.GetComponent<SpriteRenderer>().sprite = right;
+		o.GetComponent<SpriteRenderer>().sortingOrder = sortingOrder;
 
 		// set the Local Position to the xPos specified
 		Vector3 localPos = new Vector3(xPos, 0, 0);

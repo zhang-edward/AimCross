@@ -5,7 +5,7 @@ public class Board : MonoBehaviour {
 
 	public const int boardSize = 6;
 
-	public int[,] boardGen = new int[boardSize, boardSize];
+	private int[,] boardGen = new int[boardSize, boardSize];
 	public Floor[,] floorTiles = new Floor[boardSize, boardSize];
 	public BoardTile[,] board = new BoardTile[boardSize, boardSize];
 
@@ -13,19 +13,18 @@ public class Board : MonoBehaviour {
 	public GameObject floorPrefab;
 	public GameObject enemyPrefab;
 	public GameObject enemyAreaPrefab;
+	public GameObject invertTilePrefab;
+	public GameObject crossTilePrefab;
 
 	public bool populated = false;
 
 	public int level;
 
-	public bool waiting;		// makes GameManager wait until all buttons are finished pressing before aiming again
-	public float waitTimer;
-
-	// TODO: spawn a set number of enemy tiles per level instead of just random
-	void Start()
-	{
-
+	private bool waiting;		// makes GameManager wait until all buttons are finished pressing before aiming again
+	public bool Waiting{
+		get{return waiting;}
 	}
+	private float waitTimer;
 
 	public void InitBoard()
 	{
@@ -34,7 +33,7 @@ public class Board : MonoBehaviour {
 		{
 			for (int y = 0; y < boardSize; y ++)
 			{
-				floorTiles[y, x] = CreateNewTile(floorPrefab, x, y).GetComponent<BoardTile>() as Floor;
+				floorTiles[y, x] = CreateFloorTile(floorPrefab, x, y).GetComponent<BoardTile>() as Floor;
 			}
 		}
 	}
@@ -56,9 +55,8 @@ public class Board : MonoBehaviour {
 			}
 		}
 
-		// Equation to calculate the number of enemies on te board
+		// Equation to calculate the number of enemies on the board, max 15
 		int numEnemies = (int)(10.0f * (Mathf.Log10 (level + 1.0f)) + 2);
-
 		if (numEnemies > 15)
 			numEnemies = 15;
 
@@ -80,7 +78,7 @@ public class Board : MonoBehaviour {
 		StartCoroutine("InitBoardAnim");
 	}
 
-	IEnumerator InitBoardAnim()
+	private IEnumerator InitBoardAnim()
 	{
 		for (int x = 0; x < boardSize; x ++)
 		{
@@ -91,18 +89,11 @@ public class Board : MonoBehaviour {
 				{
 					// have a random delay before animating the tiles so they don't all animate at the same time
 					float delay = Random.value;
-					GameObject obj = null;
-
 					// create the correct prefab
 					if (boardGen[y, x] == 1)
-						obj = CreateNewTile(enemyPrefab, x, y);
+						CreateEnemyTile(enemyPrefab, x, y, delay);
 					else if (boardGen[y, x] == 2)
-						obj = CreateNewTile(enemyAreaPrefab, x, y);
-
-					obj.SetActive (false);
-
-					StartCoroutine (AnimateTile(obj, delay, x, y));
-
+						CreateEnemyTile(enemyAreaPrefab, x, y, delay);
 				}
 				// else make the floor tile at the coordinate visible
 				else
@@ -114,7 +105,7 @@ public class Board : MonoBehaviour {
 		yield return null;
 	}
 
-	IEnumerator AnimateTile(GameObject tile, float delay, int x, int y)
+	private IEnumerator AnimateTile(GameObject tile, float delay, int x, int y)
 	{
 		yield return new WaitForSeconds(delay);
 
@@ -122,22 +113,38 @@ public class Board : MonoBehaviour {
 		floorTiles[y, x].gameObject.SetActive(false);
 		tile.SetActive(true);
 
-		// add the prefab to the board array and animate tile
+		// animate tile
 		BoardTile enemy = tile.GetComponent<BoardTile>();
-		board[y, x] = enemy;
+//		board[y, x] = enemy;
 		enemy.animate ();
 	}
 	
-	public GameObject CreateNewTile(GameObject prefab, int x, int y)
+	public GameObject CreateEnemyTile(GameObject prefab, int x, int y, float delay)
 	{
 		GameObject o = Instantiate (prefab, new Vector3(x, y), Quaternion.identity) as GameObject;
 		o.transform.SetParent(this.transform);
+
+		BoardTile enemy = o.GetComponent<BoardTile>();
+		enemy.board = this;
+		board[y, x] = enemy;
+
+		o.SetActive(false);	// tile should not be active until animated in AnimateTile()
+		StartCoroutine (AnimateTile(o, delay, x, y));
+
+		return o;
+	}
+
+	public GameObject CreateFloorTile(GameObject prefab, int x, int y)
+	{
+		GameObject o = Instantiate (prefab, new Vector3(x, y), Quaternion.identity) as GameObject;
+		o.transform.SetParent(this.transform);
+		
 		o.GetComponent<BoardTile>().board = this;
 		return o;
 	}
 
 	// check if the board is empty (there are no more active enemy tiles)
-	public bool checkIfBoardClear()
+	public bool CheckIfBoardClear()
 	{
 		for (int x = 0; x < boardSize; x ++)
 		{

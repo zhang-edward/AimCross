@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 6af5a1dbc896e8d4d861ec8541e4b8ce
-timeCreated: 1439952577
+timeCreated: 1447546487
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -24,6 +24,8 @@ TextureImporter:
     21300034: Buttons_Small_17
     21300036: Buttons_Small_18
     21300038: Buttons_Small_19
+    21300040: Buttons_Small_20
+    21300042: Buttons_Small_21
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -46,7 +48,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
+  textureFormat: -2
   maxTextureSize: 2048
   textureSettings:
     filterMode: 0
@@ -264,6 +266,26 @@ TextureImporter:
         serializedVersion: 2
         x: 96
         y: 192
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Small_20
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 160
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Buttons_Small_21
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 160
         width: 32
         height: 32
       alignment: 0

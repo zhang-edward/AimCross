@@ -6,30 +6,32 @@ public class GameManager : MonoBehaviour {
 	public static GameManager instance;
 
 	public Board board;					// Reference to the Board object
-
-	public GameUIManager guiManager;
+	public GameUI guiManager;
 
 	public bool aiming;						// whether the game is waiting for the player to aim or not
-	private Aimer[] aimers = new Aimer[2];	// the two (TODO: make it possible for potentially more) aimers
+	private Aimer[] aimers = new Aimer[2];	// the two aimers (TODO: make it possible for potentially more) 
 	private int aimerIndex = 0;				// index for which aimer to use
+	
+	private PowerUpManager pum;
 
+	// audio clips
 	public AudioClip hitGreen;
 	public AudioClip hitRed;
 	public AudioClip levelUp;
+	public AudioClip powerUp;
 
 	public bool paused;
 	public int score;
 
-	public bool showTutorial;
+	//public bool showTutorial;
 
 	void Awake()
 	{
 		if (instance == null)
 			instance = this;
-		else if (instance != this)
-			Destroy (gameObject);
 
 		board = GetComponentInChildren<Board>();
+		pum = GetComponent<PowerUpManager>();
 
 		aimers[0] = transform.FindChild("Aimer1").GetComponent<Aimer>();
 		aimers[1] = transform.FindChild("Aimer2").GetComponent<Aimer>();
@@ -76,8 +78,8 @@ public class GameManager : MonoBehaviour {
 
 	private IEnumerator Init()
 	{
-		// Request Interstitial ad 3 games before it is displayed
-		if (ScoreManager.instance.gamesPlayed % 6 - 3 == 0)
+		// Request Interstitial ad 2 games before it is displayed
+		if (ScoreManager.instance.gamesPlayed % 3 - 2 == 0)
 			AdManager.instance.RequestInterstitial();
 
 		// Initialize the board (place tiles)
@@ -138,19 +140,18 @@ public class GameManager : MonoBehaviour {
 		// if there is an enemy at the target x and y positions
 		if (board.board[targetY, targetX] != null)
 		{
-			// set the aimer's center to animates
+			// set the aimer's center to animate
 			aimers[aimerIndex].hitTarget(true);
-
 			BoardTile enemy = board.board[targetY, targetX];
 			enemy.Hit();
 
 			// if the board is waiting for the button to process, stop
 			// the coroutine from continuing
-			while (board.waiting)
+			while (board.Waiting)
 				yield return null;
 
 			// check if all enemy tiles are cleared
-			if (board.checkIfBoardClear())
+			if (board.CheckIfBoardClear())
 			{
 				score += 5;
 				SoundManager.instance.RandomizeSfxGame(levelUp);
@@ -198,6 +199,27 @@ public class GameManager : MonoBehaviour {
 			// Report the score to the score manager
 			ScoreManager.instance.UpdateScore(score);
 		}
+		// if player used PowerUp
+		else if (pum.CheckActivePowerUps())
+		{
+			// set the aimer's center to animate
+			aimers[aimerIndex].hitTarget(true);
+
+			// Do powerup stuff
+			board.CreateEnemyTile(pum.activePowerUp.tile, targetX, targetY, 0);
+			pum.UsedPowerUp();
+			pum.ClearOtherActivePowerUps(null);
+
+			SoundManager.instance.RandomizeSfxGame(powerUp);
+			
+			// shorthand for if aimerIndex is 0, set to 1, else, set to 0
+			// (switch the aimer between blue and purple)
+			aimerIndex = aimerIndex == 0 ? 1 : 0;
+			
+			aiming = true;
+			
+			StartCoroutine("Aim");
+		}
 		else
 		{
 			SoundManager.instance.RandomizeSfxGame(hitRed);
@@ -220,11 +242,11 @@ public class GameManager : MonoBehaviour {
 		}
 		yield return new WaitForSeconds(0.5f);
 
-		if (ScoreManager.instance.gamesPlayed % 6 == 0 &&
+		if (ScoreManager.instance.gamesPlayed % 3 == 0 &&
 		    ScoreManager.instance.gamesPlayed != 0)
 			AdManager.instance.ShowInterstitial();
 
-		ScoreManager.instance.GPGReportScore();
+		ScoreManager.instance.ReportScore();
 		ScoreManager.instance.gamesPlayed ++;
 
 		guiManager.GameMenu();
@@ -237,10 +259,10 @@ public class GameManager : MonoBehaviour {
 
 	public static bool getInput()
 	{
-		float yBorder = (Camera.main.orthographicSize * 2) * (3.0f / 4.0f) - 3.5f;
 //#if UNITY_EDITOR
 		return (Input.GetMouseButtonDown(0) && 
-			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < yBorder);
+			Camera.main.ScreenToWorldPoint(Input.mousePosition).y < 6.25 &&
+		        Camera.main.ScreenToWorldPoint(Input.mousePosition).y > -1.0);
 
 //#elif UNITY_ANDROID
 		/*return Input.touchCount > 0 && 

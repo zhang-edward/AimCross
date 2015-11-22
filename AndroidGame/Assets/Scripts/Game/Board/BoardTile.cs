@@ -22,5 +22,12 @@ public abstract class BoardTile : MonoBehaviour {
 		SoundManager.instance.RandomizeSfxBoard(click);
 	}
 
-	public abstract void Hit();
+	public virtual void Hit()
+	{
+		ScoreManager.instance.GPGIncrementButtonsPressed();
+		if (Application.loadedLevelName.Equals("Tutorial"))
+			TutorialGameManager.instance.score += pointValue;
+		else
+			GameManager.instance.score += pointValue;
+	}
 }

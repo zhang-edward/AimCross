@@ -12,11 +12,10 @@ public class AimerCenter : MonoBehaviour {
 
 	public void ShowIndicator(bool hit)
 	{
-		anim.SetTrigger ("Hit");
 		if (hit)
-			anim.SetBool ("HitGreen", true);
+			anim.SetTrigger ("HitGreen");
 		else
-			anim.SetBool ("HitGreen", false);
+			anim.SetTrigger ("HitRed");
 	}
 
 	public void setX(float x)

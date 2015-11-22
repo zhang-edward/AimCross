@@ -5,12 +5,8 @@ public class Enemy : BoardTile {
 		
 	public override void Hit()
 	{
-		ScoreManager.instance.IncrementButtonsPressed();
-
-		if (Application.loadedLevelName.Equals("Tutorial"))
-			TutorialGameManager.instance.score += pointValue;
-		else
-			GameManager.instance.score += pointValue;
+		// call the parent method first
+		base.Hit ();
 
 		int x = (int)transform.position.x;
 		int y = (int)transform.position.y;

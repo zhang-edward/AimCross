@@ -11,11 +11,43 @@ using UnityEngine.SocialPlatforms;
 /// </summary>
 public class ScoreManager : MonoBehaviour {
 
-	public int lastScore;
+	private int lastScore;
 	public int highScore;
 
 	public int gamesPlayed;
 	public int buttonsPressed;
+
+	// power-ups
+	private const int COST_POINTNORMAL = 5;
+	private const int COST_POINTAREA = 10;
+	private const int COST_INVERT = 15;
+	private const int COST_CROSSCLEAR = 15;
+
+	private int points;
+	public int Points {
+		get{return points;}
+	}
+	private int pu_PointNormal;
+	private int pu_PointArea;
+	private int pu_Invert;
+	private int pu_CrossClear;
+
+	public int PU_PointNormal {
+		get{return pu_PointNormal;}
+		set{pu_PointNormal = value;}
+	}
+	public int PU_PointArea {
+		get{return pu_PointArea;}
+		set{pu_PointArea = value;}
+	}
+	public int PU_Invert {
+		get{return pu_Invert;}
+		set{pu_Invert = value;}
+	}
+	public int PU_CrossClear {
+		get{return pu_CrossClear;}
+		set{pu_CrossClear = value;}
+	}
 
 	public static ScoreManager instance;
 
@@ -28,6 +60,9 @@ public class ScoreManager : MonoBehaviour {
 			Destroy (gameObject);
 		
 		DontDestroyOnLoad(gameObject);
+
+/*		// DEBUG
+		points = 9999;*/
 	}
 
 	void Start()
@@ -38,6 +73,9 @@ public class ScoreManager : MonoBehaviour {
 		// get the high score from the playerPrefs
 		highScore = PlayerPrefs.GetInt("High Score");
 		gamesPlayed = PlayerPrefs.GetInt ("Games Played");
+
+		// get points from playerPrefs
+		points = PlayerPrefs.GetInt("Points");
 
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
 			.Build();
@@ -84,13 +122,15 @@ public class ScoreManager : MonoBehaviour {
 		}
 	}
 
-	public void GPGReportScore()
+	public void ReportScore()
 	{
 		Social.ReportScore(highScore, "CgkItczL6uMHEAIQBw", (bool success) => {
 		});
+		points += lastScore;
+		PlayerPrefs.SetInt ("Points", points);
 	}
 
-	public void IncrementButtonsPressed()
+	public void GPGIncrementButtonsPressed()
 	{
 		buttonsPressed ++;
 		GPGIncrementAchievement(
@@ -101,7 +141,6 @@ public class ScoreManager : MonoBehaviour {
 			"CgkItczL6uMHEAIQAg", 1);
 		GPGIncrementAchievement(
 			"CgkItczL6uMHEAIQCg", 1);
-
 	}
 
 	public void GPGUnlockAchievement(string code)
@@ -115,5 +154,40 @@ public class ScoreManager : MonoBehaviour {
 		PlayGamesPlatform.Instance.IncrementAchievement(
 			code, progress, (bool success) => {
 		});
+	}
+
+	// Buying powerups
+	public void BuyPointNormal()
+	{
+		if (points >= COST_POINTNORMAL)
+		{
+			points -= COST_POINTNORMAL;
+			pu_PointNormal ++;
+		}
+	}
+
+	public void BuyPointArea()
+	{
+		if (points >= COST_POINTAREA)
+		{
+			points -= COST_POINTAREA;
+			pu_PointArea ++;
+		}
+	}
+	public void BuyInvert()
+	{
+		if (points >= COST_INVERT)
+		{
+			points -= COST_INVERT;
+			pu_Invert ++;
+		}
+	}
+	public void BuyCrossClear()
+	{
+		if (points >= COST_CROSSCLEAR)
+		{
+			points -= COST_CROSSCLEAR;
+			pu_CrossClear ++;
+		}
 	}
 }

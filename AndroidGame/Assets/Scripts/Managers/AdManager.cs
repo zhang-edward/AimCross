@@ -4,17 +4,17 @@ using System.Collections;
 using GoogleMobileAds.Api;
 
 public class AdManager : MonoBehaviour {
-
+	
 	public static AdManager instance;
 	
-
+	
 	InterstitialAd interstitial;
 	private const string INTERSTITIAL_ID = "ca-app-pub-1010781108315903/2216275874";
 	BannerView bannerView;
 	private const string BANNER_ID = "ca-app-pub-1010781108315903/3941857877";
-
+	
 	//private bool bannerHidden = true;
-
+	
 	void Awake()
 	{
 		// Make this a singleton
@@ -22,24 +22,24 @@ public class AdManager : MonoBehaviour {
 			instance = this;
 		else if (instance != this)
 			Destroy (gameObject);
-
+		
 		DontDestroyOnLoad(gameObject);
 	}
-
+	
 	// Use this for initialization
 	void Start () {
-		RequestBanner();
+		//RequestBanner();
 		RequestInterstitial();
 	}
-
+	
 	void Update()
 	{
 		/*if (bannerHidden)
-		{
-			bannerView.Show ();
-		}*/
+	{
+		bannerView.Show ();
+	}*/
 	}
-
+	
 	public void ShowInterstitial()
 	{
 		// Every 6th game show an ad
@@ -48,8 +48,8 @@ public class AdManager : MonoBehaviour {
 			interstitial.Show();
 		}
 	}
-
-	public void RequestBanner()
+	
+/*	public void RequestBanner()
 	{
 		// Create a 320x50 banner at the top of the screen.
 		bannerView = new BannerView(
@@ -60,7 +60,7 @@ public class AdManager : MonoBehaviour {
 			.Build();
 		// Load the banner with the request.
 		bannerView.LoadAd(request);
-	}
+	}*/
 	
 	public void RequestInterstitial()
 	{
@@ -78,8 +78,9 @@ public class AdManager : MonoBehaviour {
 		// ADD TEST DEVICE HERE
 		AdRequest request = new AdRequest.Builder()
 			.AddTestDevice("A4D94C6CCCC78F95136843C5B0579088")
-			.Build();
+				.Build();
 		// Load the interstitial with the request.
 		interstitial.LoadAd(request);
 	}
 }
+

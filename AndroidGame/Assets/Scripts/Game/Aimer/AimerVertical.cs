@@ -1,47 +1,48 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class AimerVertical : MonoBehaviour {
+public class AimerVertical : AimerBar {
 
-	// See AimerHorizontal for comments
-
-	public Board board;
-	int boardSize;
-
-	public AimerCenter aimerC;
-
-	public bool aiming;
-	public bool paused;
-	public float speed;
-	
-	public GameObject prefabTop;
+	public Sprite top;
+	public Sprite mid;
+	public Sprite bottom;
+	public GameObject aimerPiece;
+/*	public GameObject prefabTop;
 	public GameObject prefabMid;
-	public GameObject prefabBottom;
+	public GameObject prefabBottom;*/
 
 	// The x coordinate after this aimer has stopped
 	public float targetX;
-	
-	private float counter = 0.0f;
 	
 	void Awake()
 	{
 		// Create the sprites that make up the bar
 		boardSize = Board.boardSize;
 		
-		CreateAimerPiece (prefabBottom, -boardSize / 2);
-		CreateAimerPiece (prefabTop, boardSize / 2 - 1);
+		CreateAimerPiece (aimerPiece, -boardSize / 2, 2);
+		CreateAimerPiece (aimerPiece, boardSize / 2 - 1, 0);
 		// the starting and stopping i values are +1 and -1 to exclude the left and right pieces
 		for (int i = -boardSize / 2 + 1; i < boardSize / 2 - 1; i ++)
 		{
-			CreateAimerPiece(prefabMid, i);
+			CreateAimerPiece(aimerPiece, i, 1);
 		}
 	}
-	
-	void CreateAimerPiece(GameObject prefab, int yPos)
+
+	// for param pos, 0 is top, 1 is mid, 2 is bottom
+	void CreateAimerPiece(GameObject prefab, int yPos, int pos)
 	{
 		// set the World Position to this instance
 		GameObject o = Instantiate (prefab, this.transform.position, Quaternion.identity) as GameObject;
-		
+
+		// set the appropriate sprite
+		if (pos == 0)
+			o.GetComponent<SpriteRenderer>().sprite = top;
+		else if (pos == 1)
+			o.GetComponent<SpriteRenderer>().sprite = mid;
+		else if (pos == 2)
+			o.GetComponent<SpriteRenderer>().sprite = bottom;
+		o.GetComponent<SpriteRenderer>().sortingOrder = sortingOrder;
+
 		// set the Local Position to the xPos specified
 		Vector3 localPos = new Vector3(0, yPos, 0);
 		

@@ -36,20 +36,20 @@ public class Aimer : MonoBehaviour {
 	{
 		if (paused)
 		{
-			aimerH.paused = true;
-			aimerV.paused = true;
+			aimerH.Paused = true;
+			aimerV.Paused = true;
 		}
 		else
 		{
-			aimerH.paused = false;
-			aimerV.paused = false;
+			aimerH.Paused = false;
+			aimerV.Paused = false;
 		}
 	}
 
 	IEnumerator AimH()
 	{
-		aimerH.speed = aimerSpeed;
-		aimerV.speed = aimerSpeed;
+		aimerH.Speed = aimerSpeed;
+		aimerV.Speed = aimerSpeed;
 
 		// set aimerH active and to aiming mode
 		aimerH.gameObject.SetActive (true);
